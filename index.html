@@ -9,11 +9,159 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
+            background-color: #f4f4f4;
+        }
+
+        /* Estilos del carrusel */
+        .carousel-container {
+            position: relative;
+            width: 80%;
+            max-width: 900px;
+            margin: auto;
+            overflow: hidden;
+            background: rgb(100, 180, 255);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            padding: 20px;
+        }
+
+        .carousel-item a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .carousel-item img {
+            width: 100%; /* Asegúrate de que la imagen ocupe todo el ancho */
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .buttons button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .buttons button:hover {
+            background: #0056b3;
         }
     </style>
 </head>
 <body>
     <h1>Bienvenido a las noticias del ecosistema cripto</h1>
-    <p>Esta página está en desarrollo. ¡Pronto más información!</p>
+    <p>Esta página está en desarrollo. ¡Pronto más información!
+        contenido solo para ordenadores
+    </p>
+
+    <!-- Contenedor del carrusel -->
+    <div class="carousel-container">
+        <div class="carousel" id="carousel">
+            <!-- Noticias (se llenan con JS) -->
+        </div>
+    </div>
+
+    <!-- Botones de navegación -->
+    <div class="buttons">
+        <button onclick="prevSlide()">⬅ Anterior</button>
+        <button onclick="nextSlide()">Siguiente ➡</button>
+    </div>
+
+    <script>
+        // Lista de noticias con imágenes
+        const noticias = [
+            {
+                titulo: "Coinbase promueve la integración de USDC en X para impulsar el sistema de pagos",
+                enlace: "https://www.criptotendencias.com/actualidad/coinbase-promueve-la-integracion-de-usdc-en-x-para-impulsar-el-sistema-de-pagos/",
+                imagen: "https://i0.wp.com/www.criptotendencias.com/wp-content/uploads/2024/12/DALL%C2%B7E-2024-12-31-11.28.05-A-horizontal-header-illustration-in-Pop-Art-Comic-style-featuring-a-futuristic-digital-cityscape.-The-city-is-vibrant-and-filled-with-blockchain-symbo.webp?resize=750%2C375&ssl=1" // URL de la imagen
+            },
+            {
+                titulo: "Coinbase y Circle anuncian lanzamiento de USDC en 6 nuevas blockchains y cambios en la gobernanza de la moneda estable",
+                enlace: "https://www.criptotendencias.com/actualidad/coinbase-circle-usdc-6-nuevas-blockchains-gobernanza/",
+                imagen: "https://i0.wp.com/www.criptotendencias.com/wp-content/uploads/2023/08/Coinbase-y-Circle-anuncian-lanzamiento-de-USDC-en-6-nuevas-blockchains-y-cambios-en-la-gobernanza-de-la-moneda-estable.png?resize=750%2C375&ssl=1" // URL de la imagen
+            },
+            {
+                titulo: "Regulación de criptomonedas en 2024",
+                enlace: "https://www.crypto-news.com",
+                imagen: "https://via.placeholder.com/300" // URL de la imagen
+            },
+            {
+                titulo: "Nuevas oportunidades en DeFi",
+                enlace: "https://www.defipulse.com",
+                imagen: "https://via.placeholder.com/300" // URL de la imagen
+            }
+        ];
+
+        const carousel = document.getElementById("carousel");
+        let index = 0;
+
+        // Agregar noticias con imágenes al carrusel
+        function cargarNoticias() {
+            noticias.forEach(noticia => {
+                const div = document.createElement("div");
+                div.classList.add("carousel-item");
+                div.innerHTML = `
+                    <a href="${noticia.enlace}" target="_blank">
+                        <img src="${noticia.imagen}" alt="${noticia.titulo}">
+                        <h3>${noticia.titulo}</h3>
+                    </a>
+                `;
+                carousel.appendChild(div);
+            });
+        }
+
+        // Mover al siguiente slide
+        function nextSlide() {
+            if (index < noticias.length - 1) {
+                index++;
+            } else {
+                index = 0;
+            }
+            actualizarCarrusel();
+        }
+
+        // Mover al slide anterior
+        function prevSlide() {
+            if (index > 0) {
+                index--;
+            } else {
+                index = noticias.length - 1;
+            }
+            actualizarCarrusel();
+        }
+
+        // Actualizar la posición del carrusel
+        function actualizarCarrusel() {
+            const offset = -index * 100;
+            carousel.style.transform = `translateX(${offset}%)`;
+        }
+
+        // Cambio automático cada 5 segundos
+        setInterval(nextSlide, 5000);
+
+        // Cargar las noticias al iniciar
+        cargarNoticias();
+    </script>
 </body>
 </html>
