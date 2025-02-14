@@ -16,7 +16,7 @@
         .carousel-container {
             position: relative;
             width: 80%;
-            max-width: 900px;
+            max-width: 1080px;
             margin: auto;
             overflow: hidden;
             background: rgb(100, 180, 255);
@@ -30,8 +30,12 @@
         }
 
         .carousel-item {
-            min-width: 100%;
-            padding: 20px;
+        min-width: 100%;  /* Cada noticia ocupa toda la vista del carrusel */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
         }
 
         .carousel-item a {
@@ -42,10 +46,10 @@
         }
 
         .carousel-item img {
-            width: 100%; /* Asegúrate de que la imagen ocupe todo el ancho */
-            height: auto;
-            object-fit: cover;
-            border-radius: 10px;
+        width: 80%;  /* Reducir el ancho al 80% del contenedor */
+        max-height: 250px;  /* Altura máxima para evitar imágenes demasiado grandes */
+        object-fit: contain;  /* Ajusta la imagen sin recortarla */
+        border-radius: 10px;
         }
 
         .buttons {
@@ -92,6 +96,11 @@
         // Lista de noticias con imágenes
         const noticias = [
             {
+                titulo: "Glosario de Bitcoin y blockchains",
+                enlace: "https://www.criptonoticias.com/criptopedia-old/glosario/",
+                imagen: "https://www.criptonoticias.com/wp-content/uploads/2021/03/glosario-bitcoin-blockchain-criptopedia-educacion-academia-criptonoticias-750x375.png.webp" // URL de la imagen
+            },
+            {
                 titulo: "Coinbase promueve la integración de USDC en X para impulsar el sistema de pagos",
                 enlace: "https://www.criptotendencias.com/actualidad/coinbase-promueve-la-integracion-de-usdc-en-x-para-impulsar-el-sistema-de-pagos/",
                 imagen: "https://i0.wp.com/www.criptotendencias.com/wp-content/uploads/2024/12/DALL%C2%B7E-2024-12-31-11.28.05-A-horizontal-header-illustration-in-Pop-Art-Comic-style-featuring-a-futuristic-digital-cityscape.-The-city-is-vibrant-and-filled-with-blockchain-symbo.webp?resize=750%2C375&ssl=1" // URL de la imagen
@@ -102,15 +111,11 @@
                 imagen: "https://i0.wp.com/www.criptotendencias.com/wp-content/uploads/2023/08/Coinbase-y-Circle-anuncian-lanzamiento-de-USDC-en-6-nuevas-blockchains-y-cambios-en-la-gobernanza-de-la-moneda-estable.png?resize=750%2C375&ssl=1" // URL de la imagen
             },
             {
-                titulo: "Regulación de criptomonedas en 2024",
-                enlace: "https://www.crypto-news.com",
-                imagen: "https://via.placeholder.com/300" // URL de la imagen
+                titulo: "Las empresas y los gobiernos deberán «quitarle» el bitcoin a los particulares",
+                enlace: "https://www.criptonoticias.com/comunidad/adopcion/empresas-gobiernos-deberan-quitarle-bitcoin-particulares/",
+                imagen: "https://www.criptonoticias.com/wp-content/uploads/2024/02/persona-mirando-moneda-bitcoin-dall-e-750x375.jpg.webp" // URL de la imagen
             },
-            {
-                titulo: "Nuevas oportunidades en DeFi",
-                enlace: "https://www.defipulse.com",
-                imagen: "https://via.placeholder.com/300" // URL de la imagen
-            }
+
         ];
 
         const carousel = document.getElementById("carousel");
@@ -119,17 +124,20 @@
         // Agregar noticias con imágenes al carrusel
         function cargarNoticias() {
             noticias.forEach(noticia => {
-                const div = document.createElement("div");
-                div.classList.add("carousel-item");
-                div.innerHTML = `
-                    <a href="${noticia.enlace}" target="_blank">
-                        <img src="${noticia.imagen}" alt="${noticia.titulo}">
-                        <h3>${noticia.titulo}</h3>
+            const div = document.createElement("div");
+            div.classList.add("carousel-item");
+            div.innerHTML = `
+                    <a href="${noticia.enlace}" target="_blank" class="noticia-link">
+                        <div class="noticia-contenedor">
+                            <img src="${noticia.imagen}" alt="${noticia.titulo}">
+                            <h3 class="noticia-titulo">${noticia.titulo}</h3>
+                        </div>
                     </a>
                 `;
                 carousel.appendChild(div);
             });
         }
+
 
         // Mover al siguiente slide
         function nextSlide() {
