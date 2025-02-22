@@ -20,7 +20,7 @@
             color: white;
             padding: 2px;
             text-align: center;
-            font-size: 14px;
+            font-size: 11px;
             position: fixed;
             top: 0;
             left: 0;
@@ -81,7 +81,7 @@
         .slick-prev:before { content: '<'; font-size: 24px; color: #fff; font-family: inherit; }
         .slick-next:before { content: '>'; font-size: 24px; color: #fff; font-family: inherit; }
         .slick-prev span, .slick-next span { display: none !important; }
-
+    
         /* Estilos del catálogo */
         #catalogo {
             width: 90%;
@@ -94,14 +94,15 @@
             margin-bottom: 20px;
             overflow-x: auto;
             white-space: nowrap;
+            -webkit-overflow-scrolling: touch; /* Mejora el scroll en móviles */
         }
         #categorias button {
-            padding: 10px 20px;
-            margin: 0 5px;
+            padding: 8px 15px; /* Más pequeño para móviles */
+            margin: 0 3px;
             border: 1px solid #ccc;
             background-color: #fff;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px; /* Texto más pequeño */
             transition: background-color 0.3s;
         }
         #categorias button:hover {
@@ -115,13 +116,13 @@
         /* Subcontenedor 2: Productos */
         #productos {
             margin-bottom: 20px;
-            max-height: 600px; /* Limita la altura para el scroll */
-            overflow-y: auto; /* Deslizamiento vertical */
+            max-height: 600px;
+            overflow-y: auto;
         }
         .grid-productos {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* 5 columnas */
-            gap: 10px; /* Espacio entre productos */
+            grid-template-columns: repeat(5, 1fr); /* 5 columnas en escritorio */
+            gap: 10px;
         }
         .producto {
             border: 1px solid #ddd;
@@ -155,6 +156,34 @@
         #pedidos {
             border-top: 1px solid #ccc;
             padding-top: 20px;
+        }
+    
+        /* Ajustes para móviles */
+        @media (max-width: 768px) {
+            #categorias button {
+                padding: 6px 10px; /* Aún más pequeño en móviles */
+                font-size: 10px;
+            }
+            .grid-productos {
+                grid-template-columns: repeat(2, 1fr); /* 2 columnas en móviles */
+                gap: 8px;
+            }
+            .producto {
+                padding: 8px;
+            }
+            .producto img {
+                max-width: 80px; /* Imagen más pequeña */
+            }
+            .producto h3 {
+                font-size: 12px;
+            }
+            .producto p {
+                font-size: 10px;
+            }
+            .producto button {
+                padding: 4px 8px;
+                font-size: 10px;
+            }
         }
     </style>
 </head>
