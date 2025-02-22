@@ -27,6 +27,21 @@
             width: 100%;
             z-index: 1000;
         }
+        /* Nueva sección para la imagen del logo */
+        #logo-section {
+            width: 90%;
+            text-align: center; /* Centra la imagen horizontalmente */
+            margin: 0 auto;
+            padding: 0;
+        }
+        #logo-section img {
+            width: 100%; /* Se ajusta al contenedor */
+            max-width: 1280px; /* Tamaño máximo de la imagen */
+            height: auto; /* Mantiene proporción */
+            max-height: 400px; /* Altura máxima según tu diseño */
+            display: block;
+            margin: 0 auto; /* Centra la imagen */
+        }
         .carrusel {
             width: 100%;
             margin: 0; /* Quitamos margin-top, el padding del body lo maneja */
@@ -104,6 +119,12 @@
             <span id="usdc-price">Cargando USDC...</span>
         </p>
     </div>
+    
+    <!-- sección con la imagen del logo -->
+    <div id="logo-section">
+        <img src="img/pagos.jpg" alt="Logo Familiclean">
+    </div>
+
     <!-- Contenedor del carrusel -->
     <div class="carrusel">
         <div><img src="img/fondobanner.png" alt="Oferta 1"></div>
