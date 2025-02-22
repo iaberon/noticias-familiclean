@@ -11,30 +11,28 @@
     <!-- CDN de Slick Slider JS desde Cloudflare -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <style>
-        /* Estilos personalizados para el carrusel */
         .carrusel {
-            width: 100%;
+            width: 100%; /* El contenedor sigue ocupando todo el ancho */
             margin: 0;
             padding: 0;
             position: relative;
         }
-
+    
         .carrusel img {
-            width: 100%;
+            width: 95%; /* Cambia de 100% a 90% */
             height: auto;
             max-height: 300px;
             object-fit: cover;
-            margin: 0;
+            margin: 0 auto; /* Centra la imagen horizontalmente */
             padding: 0;
             display: block;
         }
-
+    
         .slick-slider, .slick-track, .slick-slide {
             margin: 0 !important;
             padding: 0 !important;
         }
-
-        /* Estilos para las flechas */
+    
         .slick-prev, .slick-next {
             position: absolute;
             top: 50%;
@@ -42,25 +40,25 @@
             z-index: 10;
             width: 40px;
             height: 40px;
-            background: rgba(0, 0, 0, 0.5); /* Fondo negro translúcido */
-            border-radius: 50%; /* Forma circular */
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
             text-align: center;
-            line-height: 40px; /* Centra el símbolo verticalmente */
-            transition: background 0.3s; /* Suaviza el cambio al pasar el mouse */
+            line-height: 40px;
+            transition: background 0.3s;
         }
-
+    
         .slick-prev:hover, .slick-next:hover {
-            background: rgba(0, 0, 0, 0.8); /* Más oscuro al pasar el mouse */
+            background: rgba(0, 0, 0, 0.8);
         }
-
+    
         .slick-prev {
-            left: 10px;
+            left: 5px; /* Ajuste opcional para acercarla al borde */
         }
-
+    
         .slick-next {
-            right: 10px;
+            right: 5px; /* Ajuste opcional para acercarla al borde */
         }
-
+    
         /* Forzar los símbolos < y > y eliminar "previous" y "next" */
         .slick-prev:before {
             content: '<';
@@ -68,17 +66,17 @@
             color: #fff;
             font-family: inherit;
         }
-
+    
         .slick-next:before {
             content: '>';
             font-size: 24px;
             color: #fff;
             font-family: inherit;
         }
-
+    
         /* Asegurar que no se muestre el texto por defecto */
         .slick-prev span, .slick-next span {
-            display: none !important; /* Oculta cualquier texto adicional */
+            display: none !important;
         }
     </style>
 </head>
