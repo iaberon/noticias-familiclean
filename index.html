@@ -61,23 +61,24 @@
             right: 10px;
         }
 
-        /* Cambiar el contenido de las flechas a símbolos < y > */
+        /* Forzar los símbolos < y > y eliminar "previous" y "next" */
         .slick-prev:before {
-            content: '<'; /* Símbolo izquierdo */
-            font-size: 24px; /* Tamaño del símbolo */
-            color: #fff; /* Color blanco para contraste */
+            content: '<';
+            font-size: 24px;
+            color: #fff;
+            font-family: inherit;
         }
 
         .slick-next:before {
-            content: '>'; /* Símbolo derecho */
+            content: '>';
             font-size: 24px;
             color: #fff;
+            font-family: inherit;
         }
 
-        /* Eliminar el texto por defecto de Slick */
-        .slick-prev:before, .slick-next:before {
-            font-family: inherit; /* Usar fuente predeterminada */
-            line-height: 1;
+        /* Asegurar que no se muestre el texto por defecto */
+        .slick-prev span, .slick-next span {
+            display: none !important; /* Oculta cualquier texto adicional */
         }
     </style>
 </head>
