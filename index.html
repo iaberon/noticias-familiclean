@@ -3,183 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noticias del ecosistema cripto</title>
+    <title>Carrusel Familiclean</title>
+    <!-- CDN de jQuery desde Cloudflare -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- CDN de Slick Slider CSS desde Cloudflare -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <!-- CDN de Slick Slider JS desde Cloudflare -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f4f4f4;
-        }
-
-        /* Estilos del carrusel */
-        .carousel-container {
+        /* Estilos personalizados para el carrusel */
+        .carrusel {
+            width: 100%;
+            margin: 0;
+            padding: 0;
             position: relative;
-            width: 80%;
-            max-width: 1080px;
-            margin: auto;
-            overflow: hidden;
-            background: rgb(100, 180, 255);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .carousel {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
+        .carrusel img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            margin: 0;
+            padding: 0;
+            display: block;
         }
 
-        .carousel-item {
-        min-width: 100%;  /* Cada noticia ocupa toda la vista del carrusel */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
+        .slick-slider, .slick-track, .slick-slide {
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
-        .carousel-item a {
-            text-decoration: none;
-            font-size: 18px;
-            color: #000000;
-            font-weight: bold;
+        /* Estilos para las flechas */
+        .slick-prev, .slick-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.5); /* Fondo negro translúcido */
+            border-radius: 50%; /* Forma circular */
+            text-align: center;
+            line-height: 40px; /* Centra el símbolo verticalmente */
+            transition: background 0.3s; /* Suaviza el cambio al pasar el mouse */
         }
 
-        .carousel-item img {
-        width: 80%;  /* Reducir el ancho al 80% del contenedor */
-        max-height: 250px;  /* Altura máxima para evitar imágenes demasiado grandes */
-        object-fit: contain;  /* Ajusta la imagen sin recortarla */
-        border-radius: 10px;
+        .slick-prev:hover, .slick-next:hover {
+            background: rgba(0, 0, 0, 0.8); /* Más oscuro al pasar el mouse */
         }
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
+        .slick-prev {
+            left: 10px;
         }
 
-        .buttons button {
-            padding: 10px;
-            margin: 5px;
-            cursor: pointer;
-            border: none;
-            background: #007bff;
-            color: white;
-            border-radius: 5px;
+        .slick-next {
+            right: 10px;
         }
 
-        .buttons button:hover {
-            background: #0056b3;
+        /* Cambiar el contenido de las flechas a símbolos < y > */
+        .slick-prev:before {
+            content: '<'; /* Símbolo izquierdo */
+            font-size: 24px; /* Tamaño del símbolo */
+            color: #fff; /* Color blanco para contraste */
+        }
+
+        .slick-next:before {
+            content: '>'; /* Símbolo derecho */
+            font-size: 24px;
+            color: #fff;
+        }
+
+        /* Eliminar el texto por defecto de Slick */
+        .slick-prev:before, .slick-next:before {
+            font-family: inherit; /* Usar fuente predeterminada */
+            line-height: 1;
         }
     </style>
 </head>
 <body>
-    <h1>Bienvenido a las noticias del ecosistema cripto</h1>
-    <p>Esta página está en desarrollo. ¡Pronto más información!
-        contenido solo para ordenadores
-    </p>
-
     <!-- Contenedor del carrusel -->
-    <div class="carousel-container">
-        <div class="carousel" id="carousel">
-            <!-- Noticias (se llenan con JS) -->
-        </div>
+    <div class="carrusel">
+        <div><img src="img/fondobanner.png" alt="Oferta 1"></div>
+        <div><img src="img/fondobanner.png" alt="Oferta 2"></div>
+        <div><img src="img/fondobanner.png" alt="Noticia 1"></div>
     </div>
 
-    <!-- Botones de navegación -->
-    <div class="buttons">
-        <button onclick="prevSlide()">⬅ Anterior</button>
-        <button onclick="nextSlide()">Siguiente ➡</button>
-    </div>
-
+    <!-- Script para inicializar el carrusel -->
     <script>
-        // Lista de noticias con imágenes
-        const noticias = [
-            {
-                titulo: "Glosario de Bitcoin y blockchains",
-                enlace: "https://www.criptonoticias.com/criptopedia-old/glosario/",
-                imagen: "https://www.criptonoticias.com/wp-content/uploads/2021/03/glosario-bitcoin-blockchain-criptopedia-educacion-academia-criptonoticias-750x375.png.webp" // URL de la imagen
-            },
-            {
-                titulo: "Coinbase promueve la integración de USDC en X para impulsar el sistema de pagos",
-                enlace: "https://www.criptotendencias.com/actualidad/coinbase-promueve-la-integracion-de-usdc-en-x-para-impulsar-el-sistema-de-pagos/",
-                imagen: "https://i0.wp.com/www.criptotendencias.com/wp-content/uploads/2024/12/DALL%C2%B7E-2024-12-31-11.28.05-A-horizontal-header-illustration-in-Pop-Art-Comic-style-featuring-a-futuristic-digital-cityscape.-The-city-is-vibrant-and-filled-with-blockchain-symbo.webp?resize=750%2C375&ssl=1" // URL de la imagen
-            },
-            {
-                titulo: "Coinbase y Circle anuncian lanzamiento de USDC en 6 nuevas blockchains y cambios en la gobernanza de la moneda estable",
-                enlace: "https://www.criptotendencias.com/actualidad/coinbase-circle-usdc-6-nuevas-blockchains-gobernanza/",
-                imagen: "https://i0.wp.com/www.criptotendencias.com/wp-content/uploads/2023/08/Coinbase-y-Circle-anuncian-lanzamiento-de-USDC-en-6-nuevas-blockchains-y-cambios-en-la-gobernanza-de-la-moneda-estable.png?resize=750%2C375&ssl=1" // URL de la imagen
-            },
-            {
-                titulo: "Las empresas y los gobiernos deberán «quitarle» el bitcoin a los particulares",
-                enlace: "https://www.criptonoticias.com/comunidad/adopcion/empresas-gobiernos-deberan-quitarle-bitcoin-particulares/",
-                imagen: "https://www.criptonoticias.com/wp-content/uploads/2024/02/persona-mirando-moneda-bitcoin-dall-e-750x375.jpg.webp" // URL de la imagen
-            },
-            {
-                titulo: "¿Qué es EigenLayer?",
-                enlace: "https://docs.eigenlayer.xyz/eigenlayer/overview",
-                imagen: "https://docs.eigenlayer.xyz/img/overview/eigenlayer-arch-v2.png" // URL de la imagen
-            },
-            {
-                titulo: "¿Qué es Aerodrome?",
-                enlace: "https://aerodrome.finance/docs",
-                imagen: "https://www.biztechafrica.com/wp-content/uploads/2024/04/aerodrome-finance-price-prediction-1024x597.webp" // URL de la imagen
-            },
-
-        ];
-
-        const carousel = document.getElementById("carousel");
-        let index = 0;
-
-        // Agregar noticias con imágenes al carrusel
-        function cargarNoticias() {
-            noticias.forEach(noticia => {
-            const div = document.createElement("div");
-            div.classList.add("carousel-item");
-            div.innerHTML = `
-                    <a href="${noticia.enlace}" target="_blank" class="noticia-link">
-                        <div class="noticia-contenedor">
-                            <img src="${noticia.imagen}" alt="${noticia.titulo}">
-                            <h3 class="noticia-titulo">${noticia.titulo}</h3>
-                        </div>
-                    </a>
-                `;
-                carousel.appendChild(div);
+        $(document).ready(function(){
+            $('.carrusel').slick({
+                autoplay: true,
+                autoplaySpeed: 3000,
+                arrows: true,
+                dots: false,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
             });
-        }
-
-
-        // Mover al siguiente slide
-        function nextSlide() {
-            if (index < noticias.length - 1) {
-                index++;
-            } else {
-                index = 0;
-            }
-            actualizarCarrusel();
-        }
-
-        // Mover al slide anterior
-        function prevSlide() {
-            if (index > 0) {
-                index--;
-            } else {
-                index = noticias.length - 1;
-            }
-            actualizarCarrusel();
-        }
-
-        // Actualizar la posición del carrusel
-        function actualizarCarrusel() {
-            const offset = -index * 100;
-            carousel.style.transform = `translateX(${offset}%)`;
-        }
-
-        // Cambio automático cada 5 segundos
-        setInterval(nextSlide, 5000);
-
-        // Cargar las noticias al iniciar
-        cargarNoticias();
+        });
     </script>
 </body>
 </html>
