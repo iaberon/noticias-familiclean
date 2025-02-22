@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrusel Familiclean</title>
+    <title>Página en construcción FamilicleanCL</title>
     <!-- CDN de jQuery desde Cloudflare -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- CDN de Slick Slider CSS desde Cloudflare -->
@@ -92,8 +92,8 @@
         /* Subcontenedor 1: Categorías */
         #categorias {
             margin-bottom: 20px;
-            overflow-x: auto; /* Permite desplazamiento horizontal si hay muchas pestañas */
-            white-space: nowrap; /* Evita que las pestañas se apilen */
+            overflow-x: auto;
+            white-space: nowrap;
         }
         #categorias button {
             padding: 10px 20px;
@@ -112,8 +112,45 @@
             color: white;
             border-color: #007bff;
         }
+        /* Subcontenedor 2: Productos */
         #productos {
             margin-bottom: 20px;
+            max-height: 600px; /* Limita la altura para el scroll */
+            overflow-y: auto; /* Deslizamiento vertical */
+        }
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+            gap: 10px; /* Espacio entre productos */
+        }
+        .producto {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            background-color: #fff;
+        }
+        .producto img {
+            max-width: 100px;
+            height: auto;
+        }
+        .producto h3 {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .producto p {
+            font-size: 12px;
+            margin: 5px 0;
+        }
+        .producto button {
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .producto button:hover {
+            background-color: #218838;
         }
         #pedidos {
             border-top: 1px solid #ccc;
@@ -124,7 +161,7 @@
 <body>
     <!-- Banner con precios de criptomonedas -->
     <div id="price-banner">
-        <p>Precio actual de criptomonedas:   _
+        <p>Precio actual de criptomonedas:..._ 
             <span id="btc-price">Cargando BTC...</span> ... |
             <span id="eth-price">Cargando ETH...</span> ... |
             <span id="usdc-price">Cargando USDC...</span>
@@ -153,7 +190,9 @@
         <!-- Subcontenedor 2: Productos -->
         <div id="productos">
             <h2>Productos</h2>
-            <!-- Aquí irá la cuadrícula 5x5 (después) -->
+            <div class="grid-productos" id="grid-productos">
+                <!-- La cuadrícula se generará dinámicamente con JS -->
+            </div>
         </div>
         <!-- Subcontenedor 3: Pedidos -->
         <div id="pedidos">
@@ -203,11 +242,12 @@
         });
     </script>
 
-    <!-- Script para cargar categorías -->
+    <!-- Script para cargar categorías y productos -->
     <script>
-        fetch('data/catalogo.json') // Ajusta la ruta si el archivo está en otra carpeta
+        fetch('data/catalogo.json') // Ajusta la ruta según la ubicación del archivo
             .then(response => response.json())
             .then(data => {
+                // Subcontenedor 1: Generar pestañas de categorías
                 const categoriasDiv = document.getElementById('categorias');
                 data.categorias.forEach(cat => {
                     const button = document.createElement('button');
@@ -218,13 +258,35 @@
                         document.querySelectorAll('#categorias button').forEach(btn => btn.classList.remove('active'));
                         // Añadir clase 'active' al botón clicado
                         button.classList.add('active');
-                        // Aquí irá el filtrado para el subcontenedor 2 (después)
-                        console.log(`Categoría seleccionada: ${cat.nombre} (ID: ${cat.id})`);
+                        // Filtrar productos para subcontenedor 2
+                        const productosFiltrados = data.productos.filter(prod => prod.categoriaId == cat.id);
+                        mostrarProductos(productosFiltrados);
                     });
                     categoriasDiv.appendChild(button);
                 });
+
+                // Función para mostrar productos en la cuadrícula
+                function mostrarProductos(productos) {
+                    const grid = document.getElementById('grid-productos');
+                    grid.innerHTML = ''; // Limpiar cuadrícula
+                    productos.forEach(prod => {
+                        const div = document.createElement('div');
+                        div.className = 'producto';
+                        div.innerHTML = `
+                            <img src="${prod.imagen}" alt="${prod.nombre}">
+                            <h3>${prod.nombre}</h3>
+                            <p>CLP$${prod.precio.toLocaleString('es-CL')}</p>
+                            <p>${prod.descripcion}</p>
+                            <button class="agregar">Agregar al pedido</button>
+                        `;
+                        grid.appendChild(div);
+                    });
+                }
+
+                // Mostrar todos los productos por defecto al cargar la página
+                mostrarProductos(data.productos);
             })
-            .catch(error => console.error('Error cargando categorias:', error));
+            .catch(error => console.error('Error cargando catalogo.json:', error));
     </script>
 </body>
 </html>
