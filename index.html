@@ -510,7 +510,7 @@
                         window.location.href = mailtoLink;
 
                         // 2. Enviar mensaje a tu WhatsApp (ajusta TU_NUMERO con tu número real, ej. 56912345678)
-                        const miNumero = '+56991823324'; // Reemplaza con tu número de WhatsApp
+                        const miNumero = '56991823324'; // Reemplaza con tu número de WhatsApp
                         const whatsappMensaje = `Nuevo Pedido #${pedidoNum}\nNombre: ${nombre}\nTeléfono: ${telefono}\nCorreo: ${correo}\nProductos:\n${pedidoItems.map(p => `${p.nombre} - CLP$${p.precio}`).join('\n')}`;
                         const whatsappLink = `https://wa.me/${miNumero}?text=${encodeURIComponent(whatsappMensaje)}`;
                         window.open(whatsappLink, '_blank');
