@@ -204,6 +204,11 @@
             font-size: 12px;
             margin: 5px 0;
         }
+        .producto .cantidad {
+            width: 40px;
+            padding: 2px;
+            margin: 5px 0;
+        }
         .producto button {
             padding: 5px 10px;
             background-color: #28a745;
@@ -256,6 +261,10 @@
         #pedido-list {
             margin-top: 10px;
         }
+        #pedido-total {
+            font-weight: bold;
+            margin: 10px 0;
+        }
     
         /* Ajustes para móviles */
         @media (max-width: 768px) {
@@ -288,6 +297,9 @@
             }
             .producto p {
                 font-size: 10px;
+            }
+            .producto .cantidad {
+                width: 30px;
             }
             .producto button {
                 padding: 4px 8px;
@@ -339,6 +351,7 @@
         <div id="pedidos">
             <h2>Tu Pedido</h2>
             <div id="pedido-list"></div>
+            <div id="pedido-total">Total: CLP$0</div>
             <form id="pedido-form">
                 <input type="text" id="cliente-nombre" placeholder="Nombre" required>
                 <input type="tel" id="cliente-telefono" placeholder="Teléfono" required>
@@ -377,6 +390,7 @@
     <!-- Script para cargar categorías, productos y manejar pedidos -->
     <script>
         let pedidoItems = [];
+        let pedidoCounter = 1001; // Inicia en 1001
 
         fetch('data/catalogo.json')
             .then(response => response.json())
@@ -409,9 +423,13 @@
                             <h3>${prod.nombre}</h3>
                             <p>CLP$${prod.precio.toLocaleString('es-CL')}</p>
                             <p>${prod.descripcion}</p>
+                            <input type="number" class="cantidad" min="1" value="1">
                             <button class="agregar">Agregar al pedido</button>
                         `;
-                        div.querySelector('.agregar').addEventListener('click', () => agregarAlPedido(prod));
+                        div.querySelector('.agregar').addEventListener('click', () => {
+                            const cantidad = parseInt(div.querySelector('.cantidad').value) || 1;
+                            agregarAlPedido(prod, cantidad);
+                        });
                         grid.appendChild(div);
                     });
                 }
@@ -469,32 +487,42 @@
                 });
 
                 // Subcontenedor 3: Manejo de pedidos
-                function agregarAlPedido(producto) {
-                    pedidoItems.push(producto);
+                function agregarAlPedido(producto, cantidad) {
+                    pedidoItems.push({ ...producto, cantidad });
                     actualizarListaPedido();
                 }
 
                 function actualizarListaPedido() {
                     const pedidoList = document.getElementById('pedido-list');
+                    const pedidoTotal = document.getElementById('pedido-total');
                     pedidoList.innerHTML = '';
+                    let total = 0;
                     pedidoItems.forEach(item => {
                         const p = document.createElement('p');
-                        p.textContent = `${item.nombre} - CLP$${item.precio.toLocaleString('es-CL')}`;
+                        const subtotal = item.precio * item.cantidad;
+                        p.textContent = `${item.nombre} (x${item.cantidad}) - CLP$${subtotal.toLocaleString('es-CL')}`;
                         pedidoList.appendChild(p);
+                        total += subtotal;
                     });
+                    pedidoTotal.textContent = `Total: CLP$${total.toLocaleString('es-CL')}`;
+                    validarFormulario();
+                }
+
+                function validarFormulario() {
+                    const inputs = document.querySelectorAll('#pedido-form input');
+                    const allFilled = Array.from(inputs).every(inp => inp.value.trim() !== '');
+                    const generarBtn = document.getElementById('generar-pedido');
+                    const errorMessage = document.getElementById('error-message');
+                    generarBtn.disabled = !allFilled || pedidoItems.length === 0;
+                    errorMessage.style.display = allFilled && pedidoItems.length > 0 ? 'none' : 'block';
                 }
 
                 const form = document.getElementById('pedido-form');
                 const generarBtn = document.getElementById('generar-pedido');
-                const errorMessage = document.getElementById('error-message');
                 const inputs = form.querySelectorAll('input');
 
                 inputs.forEach(input => {
-                    input.addEventListener('input', () => {
-                        const allFilled = Array.from(inputs).every(inp => inp.value.trim() !== '');
-                        generarBtn.disabled = !allFilled || pedidoItems.length === 0;
-                        errorMessage.style.display = allFilled && pedidoItems.length > 0 ? 'none' : 'block';
-                    });
+                    input.addEventListener('input', validarFormulario);
                 });
 
                 generarBtn.addEventListener('click', () => {
@@ -502,25 +530,20 @@
                         const nombre = document.getElementById('cliente-nombre').value;
                         const telefono = document.getElementById('cliente-telefono').value;
                         const correo = document.getElementById('cliente-correo').value;
-                        const pedidoNum = Date.now(); // Número único basado en timestamp
+                        const pedidoNum = pedidoCounter++;
 
-                        // 1. Enviar correo al cliente con mailto
-                        const clienteMensaje = `Pedido #${pedidoNum}\nNombre: ${nombre}\nTeléfono: ${telefono}\nCorreo: ${correo}\nProductos:\n${pedidoItems.map(p => `${p.nombre} - CLP$${p.precio}`).join('\n')}`;
-                        const mailtoLink = `mailto:${correo}?subject=Confirmación de Pedido #${pedidoNum}&body=${encodeURIComponent(clienteMensaje)}`;
-                        window.location.href = mailtoLink;
-
-                        // 2. Enviar mensaje a tu WhatsApp (ajusta TU_NUMERO con tu número real, ej. 56912345678)
-                        const miNumero = '56991823324'; // Reemplaza con tu número de WhatsApp
-                        const whatsappMensaje = `Nuevo Pedido #${pedidoNum}\nNombre: ${nombre}\nTeléfono: ${telefono}\nCorreo: ${correo}\nProductos:\n${pedidoItems.map(p => `${p.nombre} - CLP$${p.precio}`).join('\n')}`;
+                        // 1. Enviar mensaje a tu WhatsApp
+                        const miNumero = '56991823324'; // Tu número
+                        const whatsappMensaje = `Nuevo Pedido #${pedidoNum}\nNombre: ${nombre}\nTeléfono: ${telefono}\nCorreo: ${correo}\nProductos:\n${pedidoItems.map(p => `${p.nombre} (x${p.cantidad}) - CLP$${p.precio * p.cantidad}`).join('\n')}\nTotal: CLP$${pedidoItems.reduce((sum, p) => sum + p.precio * p.cantidad, 0).toLocaleString('es-CL')}`;
                         const whatsappLink = `https://wa.me/${miNumero}?text=${encodeURIComponent(whatsappMensaje)}`;
                         window.open(whatsappLink, '_blank');
 
-                        // 3. Generar y descargar archivo JSON
+                        // 2. Generar y descargar archivo JSON
                         const pedidoData = {
                             numero: pedidoNum,
                             cliente: { nombre, telefono, correo },
                             productos: pedidoItems,
-                            total: pedidoItems.reduce((sum, prod) => sum + prod.precio, 0)
+                            total: pedidoItems.reduce((sum, prod) => sum + prod.precio * prod.cantidad, 0)
                         };
                         const blob = new Blob([JSON.stringify(pedidoData, null, 2)], { type: 'application/json' });
                         const url = URL.createObjectURL(blob);
@@ -530,12 +553,12 @@
                         a.click();
                         URL.revokeObjectURL(url);
 
-                        // Limpiar formulario y lista después de enviar
+                        // Limpiar después de enviar
                         pedidoItems = [];
                         actualizarListaPedido();
                         form.reset();
                         generarBtn.disabled = true;
-                        errorMessage.style.display = 'block';
+                        document.getElementById('error-message').style.display = 'block';
                     }
                 });
             })
