@@ -26,6 +26,16 @@
             left: 0;
             width: 100%;
             z-index: 1000;
+            overflow: hidden; /* Oculta el texto que sale del contenedor */
+            white-space: nowrap; /* Mantiene el texto en una línea */
+        }
+        #price-banner p {
+            display: inline-block;
+            animation: marquesina 23s linear infinite; /* 23 segundos para 60 WPM */
+        }
+        @keyframes marquesina {
+            0% { transform: translateX(100%); } /* Empieza fuera a la derecha */
+            100% { transform: translateX(-100%); } /* Termina fuera a la izquierda */
         }
         #logo-section {
             width: 90%;
@@ -94,15 +104,15 @@
             margin-bottom: 20px;
             overflow-x: auto;
             white-space: nowrap;
-            -webkit-overflow-scrolling: touch; /* Mejora el scroll en móviles */
+            -webkit-overflow-scrolling: touch;
         }
         #categorias button {
-            padding: 8px 15px; /* Más pequeño para móviles */
+            padding: 8px 15px;
             margin: 0 3px;
             border: 1px solid #ccc;
             background-color: #fff;
             cursor: pointer;
-            font-size: 12px; /* Texto más pequeño */
+            font-size: 12px;
             transition: background-color 0.3s;
         }
         #categorias button:hover {
@@ -121,7 +131,7 @@
         }
         .grid-productos {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* 5 columnas en escritorio */
+            grid-template-columns: repeat(5, 1fr);
             gap: 10px;
         }
         .producto {
@@ -161,18 +171,18 @@
         /* Ajustes para móviles */
         @media (max-width: 768px) {
             #categorias button {
-                padding: 6px 10px; /* Aún más pequeño en móviles */
+                padding: 6px 10px;
                 font-size: 10px;
             }
             .grid-productos {
-                grid-template-columns: repeat(2, 1fr); /* 2 columnas en móviles */
+                grid-template-columns: repeat(2, 1fr);
                 gap: 8px;
             }
             .producto {
                 padding: 8px;
             }
             .producto img {
-                max-width: 80px; /* Imagen más pequeña */
+                max-width: 80px;
             }
             .producto h3 {
                 font-size: 12px;
@@ -188,13 +198,9 @@
     </style>
 </head>
 <body>
-    <!-- Banner con precios de criptomonedas -->
+    <!-- Banner con horarios de atención -->
     <div id="price-banner">
-        <p>Precio actual de criptomonedas:..._ 
-            <span id="btc-price">Cargando BTC...</span> ... |
-            <span id="eth-price">Cargando ETH...</span> ... |
-            <span id="usdc-price">Cargando USDC...</span>
-        </p>
+        <p>Horarios de atención para este sitio web: de 10:00 a 21:00... Horarios de despacho con previa coordinación al momento de la compra</p>
     </div>
     
     <!-- Sección con la imagen del logo -->
@@ -230,7 +236,8 @@
         </div>
     </div>
 
-    <!-- Script de JavaScript -->
+    <!-- Script de JavaScript (comentado para desactivar precios de criptos) -->
+    <!--
     <script>
         async function fetchCryptoPrices() {
             try {
@@ -245,6 +252,7 @@
         }
         fetchCryptoPrices();
     </script>
+    -->
 
     <!-- Script para inicializar el carrusel -->
     <script>
@@ -273,7 +281,7 @@
 
     <!-- Script para cargar categorías y productos -->
     <script>
-        fetch('data/catalogo.json') // Ajusta la ruta según la ubicación del archivo
+        fetch('data/catalogo.json')
             .then(response => response.json())
             .then(data => {
                 // Subcontenedor 1: Generar pestañas de categorías
@@ -283,11 +291,8 @@
                     button.textContent = cat.nombre;
                     button.setAttribute('data-id', cat.id);
                     button.addEventListener('click', () => {
-                        // Remover clase 'active' de todos los botones
                         document.querySelectorAll('#categorias button').forEach(btn => btn.classList.remove('active'));
-                        // Añadir clase 'active' al botón clicado
                         button.classList.add('active');
-                        // Filtrar productos para subcontenedor 2
                         const productosFiltrados = data.productos.filter(prod => prod.categoriaId == cat.id);
                         mostrarProductos(productosFiltrados);
                     });
@@ -297,7 +302,7 @@
                 // Función para mostrar productos en la cuadrícula
                 function mostrarProductos(productos) {
                     const grid = document.getElementById('grid-productos');
-                    grid.innerHTML = ''; // Limpiar cuadrícula
+                    grid.innerHTML = '';
                     productos.forEach(prod => {
                         const div = document.createElement('div');
                         div.className = 'producto';
