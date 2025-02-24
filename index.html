@@ -102,37 +102,11 @@
         /* Subcontenedor 1: Categorías y buscador */
         #categorias {
             margin-bottom: 20px;
-            overflow-x: auto;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #categorias h2 {
-            margin: 0;
-            font-size: 18px;
-        }
-        #categorias button {
-            padding: 8px 15px;
-            margin: 0 3px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            cursor: pointer;
-            font-size: 12px;
-            transition: background-color 0.3s;
-        }
-        #categorias button:hover {
-            background-color: #e0e0e0;
-        }
-        #categorias button.active {
-            background-color: #007bff;
-            color: white;
-            border-color: #007bff;
         }
         .search-container {
+            margin-bottom: 10px;
+            text-align: right;
             position: relative;
-            display: inline-block;
         }
         #search-input {
             padding: 6px 30px 6px 10px;
@@ -156,7 +130,7 @@
         #search-suggestions {
             position: absolute;
             top: 100%;
-            left: 0;
+            right: 0;
             width: 200px;
             max-height: 200px;
             overflow-y: auto;
@@ -173,6 +147,33 @@
         }
         #search-suggestions div:hover {
             background-color: #f0f0f0;
+        }
+        #categorias h2 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            display: inline-block;
+        }
+        #categorias .categorias-buttons {
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        #categorias button {
+            padding: 8px 15px;
+            margin: 0 3px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+        #categorias button:hover {
+            background-color: #e0e0e0;
+        }
+        #categorias button.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
         }
         /* Subcontenedor 2: Productos */
         #productos {
@@ -221,16 +222,8 @@
     
         /* Ajustes para móviles */
         @media (max-width: 768px) {
-            #categorias {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            #categorias button {
-                padding: 6px 10px;
-                font-size: 10px;
-            }
             .search-container {
-                margin-top: 10px;
+                text-align: left;
                 width: 100%;
             }
             #search-input {
@@ -238,6 +231,10 @@
             }
             #search-suggestions {
                 width: 100%;
+            }
+            #categorias button {
+                padding: 6px 10px;
+                font-size: 10px;
             }
             .grid-productos {
                 grid-template-columns: repeat(2, 1fr);
@@ -284,11 +281,14 @@
     <div id="catalogo">
         <!-- Subcontenedor 1: Categorías y buscador -->
         <div id="categorias">
-            <h2>Categorías</h2>
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="Buscar productos...">
                 <button id="search-button">Buscar</button>
                 <div id="search-suggestions"></div>
+            </div>
+            <h2>Categorías</h2>
+            <div class="categorias-buttons">
+                <!-- Las pestañas se generarán dinámicamente con JS -->
             </div>
         </div>
         <!-- Subcontenedor 2: Productos -->
@@ -336,7 +336,7 @@
             .then(response => response.json())
             .then(data => {
                 // Subcontenedor 1: Generar pestañas de categorías
-                const categoriasDiv = document.getElementById('categorias');
+                const categoriasButtonsDiv = document.querySelector('#categorias .categorias-buttons');
                 data.categorias.forEach(cat => {
                     const button = document.createElement('button');
                     button.textContent = cat.nombre;
@@ -348,7 +348,7 @@
                         mostrarProductos(productosFiltrados);
                         document.getElementById('search-input').value = ''; // Limpiar buscador
                     });
-                    categoriasDiv.insertBefore(button, document.querySelector('.search-container')); // Antes del buscador
+                    categoriasButtonsDiv.appendChild(button);
                 });
 
                 // Función para mostrar productos en la cuadrícula
@@ -391,7 +391,7 @@
                                 suggestion.addEventListener('click', () => {
                                     searchInput.value = prod.nombre;
                                     suggestionsDiv.style.display = 'none';
-                                    mostrarProductos([prod]); // Mostrar solo el producto seleccionado
+                                    mostrarProductos([prod]);
                                 });
                                 suggestionsDiv.appendChild(suggestion);
                             });
@@ -401,7 +401,7 @@
                         }
                     } else {
                         suggestionsDiv.style.display = 'none';
-                        mostrarProductos(data.productos); // Volver a todos si el input está vacío
+                        mostrarProductos(data.productos);
                     }
                 });
 
@@ -412,7 +412,7 @@
                     );
                     mostrarProductos(productosFiltrados);
                     suggestionsDiv.style.display = 'none';
-                    document.querySelectorAll('#categorias button').forEach(btn => btn.classList.remove('active')); // Desmarcar categorías
+                    document.querySelectorAll('#categorias button').forEach(btn => btn.classList.remove('active'));
                 });
 
                 // Ocultar sugerencias al hacer clic fuera
