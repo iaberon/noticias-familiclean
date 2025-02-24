@@ -26,16 +26,16 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            overflow: hidden; /* Oculta el texto que sale del contenedor */
-            white-space: nowrap; /* Mantiene el texto en una línea */
+            overflow: hidden;
+            white-space: nowrap;
         }
         #price-banner p {
             display: inline-block;
-            animation: marquesina 23s linear infinite; /* 23 segundos para 60 WPM */
+            animation: marquesina 23s linear infinite;
         }
         @keyframes marquesina {
-            0% { transform: translateX(100%); } /* Empieza fuera a la derecha */
-            100% { transform: translateX(-100%); } /* Termina fuera a la izquierda */
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
         #logo-section {
             width: 90%;
@@ -91,7 +91,7 @@
         .slick-prev:before { content: '<'; font-size: 24px; color: #fff; font-family: inherit; }
         .slick-next:before { content: '>'; font-size: 24px; color: #fff; font-family: inherit; }
         .slick-prev span, .slick-next span { display: none !important; }
-    
+
         /* Estilos del catálogo */
         #catalogo {
             width: 90%;
@@ -99,12 +99,19 @@
             padding: 20px;
             background-color: #f9f9f9;
         }
-        /* Subcontenedor 1: Categorías */
+        /* Subcontenedor 1: Categorías y buscador */
         #categorias {
             margin-bottom: 20px;
             overflow-x: auto;
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #categorias h2 {
+            margin: 0;
+            font-size: 18px;
         }
         #categorias button {
             padding: 8px 15px;
@@ -122,6 +129,50 @@
             background-color: #007bff;
             color: white;
             border-color: #007bff;
+        }
+        .search-container {
+            position: relative;
+            display: inline-block;
+        }
+        #search-input {
+            padding: 6px 30px 6px 10px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+        #search-button {
+            padding: 6px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        #search-button:hover {
+            background-color: #0056b3;
+        }
+        #search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 200px;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+        #search-suggestions div {
+            padding: 8px;
+            cursor: pointer;
+        }
+        #search-suggestions div:hover {
+            background-color: #f0f0f0;
         }
         /* Subcontenedor 2: Productos */
         #productos {
@@ -170,9 +221,23 @@
     
         /* Ajustes para móviles */
         @media (max-width: 768px) {
+            #categorias {
+                flex-direction: column;
+                align-items: flex-start;
+            }
             #categorias button {
                 padding: 6px 10px;
                 font-size: 10px;
+            }
+            .search-container {
+                margin-top: 10px;
+                width: 100%;
+            }
+            #search-input {
+                width: 100%;
+            }
+            #search-suggestions {
+                width: 100%;
             }
             .grid-productos {
                 grid-template-columns: repeat(2, 1fr);
@@ -200,7 +265,7 @@
 <body>
     <!-- Banner con horarios de atención -->
     <div id="price-banner">
-        <p>Horarios de atención para este sitio web: de 10:00 a 21:00... Horarios de despacho con previa coordinación al momento de la compra</p>
+        <p>horarios de atención para este sitio web: de 10:00 a 21:00 horarios de despacho previa coordinación al momento de la compra</p>
     </div>
     
     <!-- Sección con la imagen del logo -->
@@ -217,10 +282,14 @@
 
     <!-- Contenedor del catálogo -->
     <div id="catalogo">
-        <!-- Subcontenedor 1: Categorías -->
+        <!-- Subcontenedor 1: Categorías y buscador -->
         <div id="categorias">
             <h2>Categorías</h2>
-            <!-- Las pestañas se generarán dinámicamente con JS -->
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Buscar productos...">
+                <button id="search-button">Buscar</button>
+                <div id="search-suggestions"></div>
+            </div>
         </div>
         <!-- Subcontenedor 2: Productos -->
         <div id="productos">
@@ -235,24 +304,6 @@
             <!-- Aquí irá el listado y botón (después) -->
         </div>
     </div>
-
-    <!-- Script de JavaScript (comentado para desactivar precios de criptos) -->
-    <!--
-    <script>
-        async function fetchCryptoPrices() {
-            try {
-                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,usd-coin&vs_currencies=clp');
-                const data = await response.json();
-                document.getElementById('btc-price').innerText = "Btc CLP $" + new Intl.NumberFormat('es-CL').format(data.bitcoin.clp);
-                document.getElementById('eth-price').innerText = "Eth CLP $" + new Intl.NumberFormat('es-CL').format(data.ethereum.clp);
-                document.getElementById('usdc-price').innerText = "Usdc CLP $" + new Intl.NumberFormat('es-CL').format(data['usd-coin'].clp);
-            } catch (error) {
-                console.error("Error fetching prices:", error);
-            }
-        }
-        fetchCryptoPrices();
-    </script>
-    -->
 
     <!-- Script para inicializar el carrusel -->
     <script>
@@ -279,7 +330,7 @@
         });
     </script>
 
-    <!-- Script para cargar categorías y productos -->
+    <!-- Script para cargar categorías, productos y buscador -->
     <script>
         fetch('data/catalogo.json')
             .then(response => response.json())
@@ -295,8 +346,9 @@
                         button.classList.add('active');
                         const productosFiltrados = data.productos.filter(prod => prod.categoriaId == cat.id);
                         mostrarProductos(productosFiltrados);
+                        document.getElementById('search-input').value = ''; // Limpiar buscador
                     });
-                    categoriasDiv.appendChild(button);
+                    categoriasDiv.insertBefore(button, document.querySelector('.search-container')); // Antes del buscador
                 });
 
                 // Función para mostrar productos en la cuadrícula
@@ -319,6 +371,56 @@
 
                 // Mostrar todos los productos por defecto al cargar la página
                 mostrarProductos(data.productos);
+
+                // Buscador
+                const searchInput = document.getElementById('search-input');
+                const searchButton = document.getElementById('search-button');
+                const suggestionsDiv = document.getElementById('search-suggestions');
+
+                searchInput.addEventListener('input', () => {
+                    const query = searchInput.value.toLowerCase();
+                    suggestionsDiv.innerHTML = '';
+                    if (query.length > 0) {
+                        const sugerencias = data.productos.filter(prod => 
+                            prod.nombre.toLowerCase().includes(query)
+                        );
+                        if (sugerencias.length > 0) {
+                            sugerencias.forEach(prod => {
+                                const suggestion = document.createElement('div');
+                                suggestion.textContent = prod.nombre;
+                                suggestion.addEventListener('click', () => {
+                                    searchInput.value = prod.nombre;
+                                    suggestionsDiv.style.display = 'none';
+                                    mostrarProductos([prod]); // Mostrar solo el producto seleccionado
+                                });
+                                suggestionsDiv.appendChild(suggestion);
+                            });
+                            suggestionsDiv.style.display = 'block';
+                        } else {
+                            suggestionsDiv.style.display = 'none';
+                        }
+                    } else {
+                        suggestionsDiv.style.display = 'none';
+                        mostrarProductos(data.productos); // Volver a todos si el input está vacío
+                    }
+                });
+
+                searchButton.addEventListener('click', () => {
+                    const query = searchInput.value.toLowerCase();
+                    const productosFiltrados = data.productos.filter(prod => 
+                        prod.nombre.toLowerCase().includes(query)
+                    );
+                    mostrarProductos(productosFiltrados);
+                    suggestionsDiv.style.display = 'none';
+                    document.querySelectorAll('#categorias button').forEach(btn => btn.classList.remove('active')); // Desmarcar categorías
+                });
+
+                // Ocultar sugerencias al hacer clic fuera
+                document.addEventListener('click', (e) => {
+                    if (!searchInput.contains(e.target) && !suggestionsDiv.contains(e.target)) {
+                        suggestionsDiv.style.display = 'none';
+                    }
+                });
             })
             .catch(error => console.error('Error cargando catalogo.json:', error));
     </script>
