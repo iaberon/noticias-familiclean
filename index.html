@@ -240,6 +240,13 @@
         #pedidos .envio-options {
             display: flex;
             gap: 20px;
+            align-items: center;
+        }
+        #pedidos .envio-info-icon {
+            width: 14px;
+            height: 14px;
+            vertical-align: middle;
+            margin-left: 5px;
         }
         #pedidos button {
             padding: 10px;
@@ -380,7 +387,7 @@
                 <input type="email" id="cliente-correo" placeholder="micorreo@dominio.cl" required>
                 <div class="envio-options">
                     <label><input type="radio" name="envio" value="retiro" checked> Retiro en tienda</label>
-                    <label><input type="radio" name="envio" value="despacho"> Despacho a domicilio $1.500</label>
+                    <label><input type="radio" name="envio" value="despacho"> Despacho a domicilio $1.500 <img src="img/envio.png" class="envio-info-icon" title="El método de envío a domicilio por $1.500, solo cubre la zona urbana de Peñaflor. Delimitadas por las calles Av. Pajaritos, Av. Balmaceda, Av. Las Palmeras, y zonas cercanas al Cerro la Virgen, no incluye más allá del río Mapocho."></label>
                 </div>
                 <button type="button" id="generar-pedido" disabled>Generar Pedido</button>
                 <p id="error-message" class="error-message">Primero debe llenar los datos</p>
