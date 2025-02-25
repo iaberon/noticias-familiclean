@@ -264,10 +264,10 @@
         }
         #pedido-list {
             margin-top: 10px;
-            border: 2px solid #007bff; /* Marco azul para el listado */
+            border: 2px solid #007bff;
             padding: 10px;
             border-radius: 5px;
-            background-color: #f0f8ff; /* Fondo claro para destacar */
+            background-color: #f0f8ff;
         }
         #pedido-list p {
             margin: 5px 0;
@@ -276,10 +276,10 @@
         #pedido-total {
             font-weight: bold;
             margin: 10px 0;
-            border: 2px solid #28a745; /* Marco verde para el total */
+            border: 2px solid #28a745;
             padding: 10px;
             border-radius: 5px;
-            background-color: #e6ffe6; /* Fondo claro para destacar */
+            background-color: #e6ffe6;
             text-align: right;
         }
     
@@ -529,7 +529,6 @@
                     pedidoList.innerHTML = '';
                     let total = pedidoItems.reduce((sum, p) => sum + p.precio * p.cantidad, 0);
                     const envioOption = document.querySelector('input[name="envio"]:checked').value;
-                    if (envioOption === 'despacho') total += 1500;
 
                     pedidoItems.forEach(item => {
                         const p = document.createElement('p');
@@ -537,6 +536,15 @@
                         p.textContent = `${item.nombre} (x${item.cantidad}) - CLP$${subtotal.toLocaleString('es-CL')}`;
                         pedidoList.appendChild(p);
                     });
+
+                    // Agregar costo de despacho al final del listado si aplica
+                    if (envioOption === 'despacho') {
+                        const p = document.createElement('p');
+                        p.textContent = `Despacho a domicilio - CLP$1.500`;
+                        pedidoList.appendChild(p);
+                        total += 1500;
+                    }
+
                     pedidoTotal.textContent = `Total: CLP$${total.toLocaleString('es-CL')}`;
                     validarFormulario();
                 }
