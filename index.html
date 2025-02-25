@@ -264,10 +264,23 @@
         }
         #pedido-list {
             margin-top: 10px;
+            border: 2px solid #007bff; /* Marco azul para el listado */
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f0f8ff; /* Fondo claro para destacar */
+        }
+        #pedido-list p {
+            margin: 5px 0;
+            font-size: 14px;
         }
         #pedido-total {
             font-weight: bold;
             margin: 10px 0;
+            border: 2px solid #28a745; /* Marco verde para el total */
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #e6ffe6; /* Fondo claro para destacar */
+            text-align: right;
         }
     
         /* Ajustes para móviles */
@@ -501,7 +514,12 @@
 
                 // Subcontenedor 3: Manejo de pedidos
                 function agregarAlPedido(producto, cantidad) {
-                    pedidoItems.push({ ...producto, cantidad });
+                    const existingItem = pedidoItems.find(item => item.id === producto.id);
+                    if (existingItem) {
+                        existingItem.cantidad += cantidad; // Sumar cantidad si ya existe
+                    } else {
+                        pedidoItems.push({ ...producto, cantidad }); // Agregar nuevo si no existe
+                    }
                     actualizarListaPedido();
                 }
 
