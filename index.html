@@ -241,12 +241,32 @@
             display: flex;
             gap: 20px;
             align-items: center;
+            position: relative;
         }
         #pedidos .envio-info-icon {
             width: 14px;
             height: 14px;
             vertical-align: middle;
             margin-left: 5px;
+            cursor: pointer;
+        }
+        #pedidos .envio-tooltip {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            max-width: 300px;
+            z-index: 1000;
+            white-space: normal;
+        }
+        #pedidos .envio-options:hover .envio-tooltip,
+        #pedidos .envio-tooltip.active {
+            display: block;
         }
         #pedidos button {
             padding: 10px;
@@ -333,13 +353,18 @@
                 flex-direction: column;
                 gap: 10px;
             }
+            #pedidos .envio-tooltip {
+                position: static;
+                width: 100%;
+                margin-top: 5px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Banner con horarios de atención -->
     <div id="price-banner">
-        <p>..Horarios de atención para este sitio web: de 10:00 a 21:00..        ..horarios de despacho: previa coordinación al momento de la compra..     ..El método de envío a domicilio por $1.500, solo cubre la zona urbana de Peñaflor. Delimitadas por las calles Av. Pajaritos, Av. Balmaceda, Av. Las Palmeras, y zonas cercanas al Cerro la Virgen, no incluye más allá del río Mapocho..</p>
+        <p>Horarios de atención para este sitio web: de 10:00 a 21:00        horarios de despacho: previa coordinación al momento de la compra</p>
     </div>
     
     <!-- Sección con la imagen del logo -->
@@ -387,7 +412,10 @@
                 <input type="email" id="cliente-correo" placeholder="micorreo@dominio.cl" required>
                 <div class="envio-options">
                     <label><input type="radio" name="envio" value="retiro" checked> Retiro en tienda</label>
-                    <label><input type="radio" name="envio" value="despacho"> Despacho a domicilio $1.500 <img src="img/envio.png" class="envio-info-icon" title="El método de envío a domicilio por $1.500, solo cubre la zona urbana de Peñaflor. Delimitadas por las calles Av. Pajaritos, Av. Balmaceda, Av. Las Palmeras, y zonas cercanas al Cerro la Virgen, no incluye más allá del río Mapocho."></label>
+                    <label><input type="radio" name="envio" value="despacho"> Despacho a domicilio $1.500 
+                        <img src="img/envio.png" class="envio-info-icon" alt="Info envío">
+                        <span class="envio-tooltip">El método de envío a domicilio por $1.500, solo cubre la zona urbana de Peñaflor. Delimitadas por las calles Av. Pajaritos, Av. Balmaceda, Av. Las Palmeras, y zonas cercanas al Cerro la Virgen, no incluye más allá del río Mapocho.</span>
+                    </label>
                 </div>
                 <button type="button" id="generar-pedido" disabled>Generar Pedido</button>
                 <p id="error-message" class="error-message">Primero debe llenar los datos</p>
@@ -416,6 +444,20 @@
                         }
                     }
                 ]
+            });
+
+            // Manejo del tooltip en móviles
+            $('.envio-info-icon').on('click', function(e) {
+                e.preventDefault();
+                const tooltip = $(this).siblings('.envio-tooltip');
+                tooltip.toggleClass('active');
+            });
+
+            // Ocultar tooltip al hacer clic fuera
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.envio-info-icon').length) {
+                    $('.envio-tooltip').removeClass('active');
+                }
             });
         });
     </script>
@@ -575,7 +617,7 @@
 
                 generarBtn.addEventListener('click', () => {
                     if (!generarBtn.disabled) {
-                        const confirmPopup = confirm("Al crear el pedido se redireccionará a la aplicación de WhatsApp para contactarse con un vendedor, el cual terminará el proceso enviando un link de pago con el total y coordinar el envío en caso de ser necesario, el tiempo de espera en marcha blanca. Debe de tener instalada la App de WhatsApp");
+                        const confirmPopup = confirm("Al crear el pedido se redireccionará a la aplicación de WhatsApp para contactarse con un vendedor, el cual terminará el proceso enviando un link de pago con el total y coordinar el envío en caso de ser necesario, el tiempo de espera en marcha blanca");
                         if (confirmPopup) {
                             const nombre = document.getElementById('cliente-nombre').value;
                             const telefono = document.getElementById('cliente-telefono').value;
