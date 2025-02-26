@@ -14,14 +14,14 @@
         body {
             margin: 0;
             padding-top: 30px;
-            background-color: #f5f6f5; /* Blanco grisáceo como fondo general */
+            background-color: #f5f6f5;
         }
         #price-banner {
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 2px;
+            padding: 8px; /* Aumentado para acomodar texto más grande */
             text-align: center;
-            font-size: 11px;
+            font-size: 22px; /* Cambiado de 11px a 22px */
             position: fixed;
             top: 0;
             left: 0;
@@ -32,7 +32,7 @@
         }
         #price-banner p {
             display: inline-block;
-            animation: marquesina 23s linear infinite;
+            animation: marquesina 41s linear infinite; /* 45 palabras/min = 41s */
         }
         @keyframes marquesina {
             0% { transform: translateX(100%); }
@@ -112,7 +112,7 @@
             width: 90%;
             margin: 20px auto;
             padding: 20px;
-            background-color: #f5f6f5; /* Fondo blanco grisáceo */
+            background-color: #f5f6f5;
         }
         /* Subcontenedor 1: Categorías y buscador */
         #categorias {
@@ -132,7 +132,7 @@
         }
         #search-button {
             padding: 6px 10px;
-            background-color: #8d2e88; /* Morado oscuro para el buscador */
+            background-color: #8d2e88;
             color: white;
             border: none;
             border-radius: 4px;
@@ -141,7 +141,7 @@
             transition: background-color 0.3s;
         }
         #search-button:hover {
-            background-color: #b77cb4; /* Lavanda claro en hover */
+            background-color: #b77cb4;
         }
         #search-suggestions {
             position: absolute;
@@ -168,7 +168,7 @@
             margin: 0 0 10px 0;
             font-size: 18px;
             display: inline-block;
-            color: #018bd3; /* Azul vibrante para encabezados */
+            color: #018bd3;
         }
         #categorias .categorias-buttons {
             overflow-x: auto;
@@ -179,20 +179,20 @@
             padding: 8px 15px;
             margin: 0 3px;
             border: 1px solid #ccc;
-            background-color: #f5f6f5; /* Blanco grisáceo como base */
-            color: #000000; /* Letras en negro */
+            background-color: #f5f6f5;
+            color: #000000;
             cursor: pointer;
             font-size: 12px;
-            border-radius: 8px; /* Esquinas curvas */
+            border-radius: 8px;
             transition: background-color 0.3s;
         }
         #categorias button:hover {
-            background-color: #b77cb4; /* Lavanda claro en hover */
-            color: #000000; /* Mantener letras en negro */
+            background-color: #b77cb4;
+            color: #000000;
         }
         #categorias button.active {
-            background-color: #8d2e88; /* Morado oscuro para categoría activa */
-            color: #ffffff; /* Letras en blanco cuando activo */
+            background-color: #8d2e88;
+            color: #ffffff;
             border-color: #8d2e88;
         }
         /* Subcontenedor 2: Productos */
@@ -219,7 +219,7 @@
         .producto h3 {
             font-size: 14px;
             margin: 5px 0;
-            color: #018bd3; /* Azul vibrante para nombres de productos */
+            color: #018bd3;
         }
         .producto p {
             font-size: 12px;
@@ -232,14 +232,14 @@
         }
         .producto button {
             padding: 5px 10px;
-            background-color: #f4a261; /* Naranja suave para CTA */
+            background-color: #f4a261;
             color: white;
             border: none;
             cursor: pointer;
             transition: background-color 0.3s;
         }
         .producto button:hover {
-            background-color: #b77cb4; /* Lavanda claro en hover */
+            background-color: #b77cb4;
         }
         /* Subcontenedor 3: Pedidos */
         #pedidos {
@@ -276,7 +276,7 @@
             position: absolute;
             top: 100%;
             left: 0;
-            background-color: #8d2e88; /* Morado oscuro para tooltip */
+            background-color: #8d2e88;
             color: white;
             padding: 10px;
             border-radius: 5px;
@@ -291,7 +291,7 @@
         }
         #pedidos button {
             padding: 10px;
-            background-color: #018bd3; /* Azul vibrante para botón principal */
+            background-color: #018bd3;
             color: white;
             border: none;
             border-radius: 4px;
@@ -303,7 +303,7 @@
             cursor: not-allowed;
         }
         #pedidos button:not(:disabled):hover {
-            background-color: #b77cb4; /* Lavanda claro en hover */
+            background-color: #b77cb4;
         }
         #pedidos .error-message {
             color: red;
@@ -312,7 +312,7 @@
         }
         #pedido-list {
             margin-top: 10px;
-            border: 2px solid #8d2e88; /* Morado oscuro para borde */
+            border: 2px solid #8d2e88;
             padding: 10px;
             border-radius: 5px;
             background-color: #fff;
@@ -320,11 +320,23 @@
         #pedido-list p {
             margin: 5px 0;
             font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-item {
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .delete-item:hover {
+            opacity: 0.7;
         }
         #pedido-total {
             font-weight: bold;
             margin: 10px 0;
-            border: 2px solid #f4a261; /* Naranja suave para borde */
+            border: 2px solid #f4a261;
             padding: 10px;
             border-radius: 5px;
             background-color: #fff;
@@ -346,7 +358,7 @@
         }
         #pedidos-instructions {
             font-size: 12px;
-            color: #b77cb4; /* Lavanda claro para instrucciones */
+            color: #b77cb4;
             margin: 5px 0 15px 0;
         }
     
@@ -401,13 +413,17 @@
             #pedidos-instructions {
                 font-size: 11px;
             }
+            .delete-item {
+                width: 20px;
+                height: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Banner con horarios de atención -->
     <div id="price-banner">
-        <p>Horarios de atención para este sitio web: de 10:00 a 21:00        horarios de despacho: previa coordinación al momento de la compra</p>
+        <p>Horarios de atención para este sitio web: de 10:00 a 21:00 ________ Horarios de despacho: previa coordinación al momento de la compra _______ Al momento de generar el pedido podrá conversar directamente con un vendedor</p>
     </div>
     
     <!-- Sección con la imagen principal -->
@@ -619,9 +635,9 @@
                 function agregarAlPedido(producto, cantidad) {
                     const existingItem = pedidoItems.find(item => item.id === producto.id);
                     if (existingItem) {
-                        existingItem.cantidad += cantidad; // Sumar cantidad si ya existe
+                        existingItem.cantidad += cantidad;
                     } else {
-                        pedidoItems.push({ ...producto, cantidad }); // Agregar nuevo si no existe
+                        pedidoItems.push({ ...producto, cantidad });
                     }
                     actualizarListaPedido();
                 }
@@ -633,10 +649,10 @@
                     let total = pedidoItems.reduce((sum, p) => sum + p.precio * p.cantidad, 0);
                     const envioOption = document.querySelector('input[name="envio"]:checked').value;
 
-                    pedidoItems.forEach(item => {
+                    pedidoItems.forEach((item, index) => {
                         const p = document.createElement('p');
                         const subtotal = item.precio * item.cantidad;
-                        p.textContent = `${item.nombre} (x${item.cantidad}) - CLP$${subtotal.toLocaleString('es-CL')}`;
+                        p.innerHTML = `${item.nombre} (x${item.cantidad}) - CLP$${subtotal.toLocaleString('es-CL')} <img src="img/trash.png" class="delete-item" data-index="${index}" alt="Eliminar">`;
                         pedidoList.appendChild(p);
                     });
 
@@ -649,6 +665,15 @@
 
                     pedidoTotal.textContent = `Total: CLP$${total.toLocaleString('es-CL')}`;
                     validarFormulario();
+
+                    // Añadir evento a los botones de eliminación
+                    document.querySelectorAll('.delete-item').forEach(button => {
+                        button.addEventListener('click', (e) => {
+                            const index = e.target.getAttribute('data-index');
+                            pedidoItems.splice(index, 1); // Eliminar el ítem del array
+                            actualizarListaPedido(); // Actualizar el listado
+                        });
+                    });
                 }
 
                 function validarFormulario() {
@@ -680,7 +705,7 @@
                             const pedidoNum = pedidoCounter++;
 
                             // Enviar mensaje a tu WhatsApp
-                            const miNumero = '56991823324'; // Tu número
+                            const miNumero = '56991823324';
                             const whatsappMensaje = `Nuevo Pedido #${pedidoNum}\nNombre: ${nombre}\nTeléfono: ${telefono}\nDirección: ${direccion}\nCorreo: ${correo}\nEnvío: ${envio === 'retiro' ? 'Retiro en tienda' : 'Despacho a domicilio'}\nProductos:\n${pedidoItems.map(p => `${p.nombre} (x${p.cantidad}) - CLP$${p.precio * p.cantidad}`).join('\n')}\nTotal: CLP$${calcularTotal().toLocaleString('es-CL')}`;
                             const whatsappLink = `https://wa.me/${miNumero}?text=${encodeURIComponent(whatsappMensaje)}`;
                             window.open(whatsappLink, '_blank');
