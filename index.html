@@ -32,12 +32,13 @@
         }
         #price-banner p {
             display: inline-block;
-            animation: marquesina 41s linear infinite; /* Restaurado a 41s */
+            animation: marquesina 20s linear infinite; /* Nueva duración: 20s */
             margin: 0;
         }
         @keyframes marquesina {
-            0% { transform: translateX(80%); }
-            100% { transform: translateX(-100%); }
+            0% { transform: translateX(100%); } /* Fuera a la derecha */
+            10% { transform: translateX(0%); }  /* Centro en 2s (10% de 20s) */
+            100% { transform: translateX(-100%); } /* Fuera a la izquierda */
         }
         #logo-section {
             width: 100%;
