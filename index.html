@@ -132,12 +132,13 @@
         }
         #search-button {
             padding: 6px 10px;
-            background-color: #018bd3; /* Azul vibrante */
+            background-color: #8d2e88; /* Morado oscuro para el buscador */
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             margin-left: 5px;
+            transition: background-color 0.3s;
         }
         #search-button:hover {
             background-color: #b77cb4; /* Lavanda claro en hover */
@@ -178,18 +179,20 @@
             padding: 8px 15px;
             margin: 0 3px;
             border: 1px solid #ccc;
-            background-color: #fff;
+            background-color: #f5f6f5; /* Blanco grisáceo como base */
+            color: #000000; /* Letras en negro */
             cursor: pointer;
             font-size: 12px;
+            border-radius: 8px; /* Esquinas curvas */
             transition: background-color 0.3s;
         }
         #categorias button:hover {
             background-color: #b77cb4; /* Lavanda claro en hover */
-            color: white;
+            color: #000000; /* Mantener letras en negro */
         }
         #categorias button.active {
             background-color: #8d2e88; /* Morado oscuro para categoría activa */
-            color: white;
+            color: #ffffff; /* Letras en blanco cuando activo */
             border-color: #8d2e88;
         }
         /* Subcontenedor 2: Productos */
@@ -637,7 +640,6 @@
                         pedidoList.appendChild(p);
                     });
 
-                    // Agregar costo de despacho al final del listado si aplica
                     if (envioOption === 'despacho') {
                         const p = document.createElement('p');
                         p.textContent = `Despacho a domicilio - CLP$1.500`;
