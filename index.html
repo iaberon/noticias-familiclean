@@ -337,6 +337,11 @@
             display: block;
             margin: 0 auto;
         }
+        #pedidos-instructions {
+            font-size: 12px;
+            color: #555;
+            margin: 5px 0 15px 0;
+        }
     
         /* Ajustes para móviles */
         @media (max-width: 768px) {
@@ -385,6 +390,9 @@
                 position: static;
                 width: 100%;
                 margin-top: 5px;
+            }
+            #pedidos-instructions {
+                font-size: 11px;
             }
         }
     </style>
@@ -436,6 +444,7 @@
         <!-- Subcontenedor 3: Pedidos -->
         <div id="pedidos">
             <h2>Tu Pedido</h2>
+            <p id="pedidos-instructions">Para habilitar el botón "Generar Pedido", agrega productos al pedido y completa todos los campos del formulario.</p>
             <div id="pedido-list"></div>
             <div id="pedido-total">Total: CLP$0</div>
             <form id="pedido-form">
@@ -659,7 +668,7 @@
                         if (confirmPopup) {
                             const nombre = document.getElementById('cliente-nombre').value;
                             const telefono = document.getElementById('cliente-telefono').value;
-                            const direccion = document.getElementById('cliente-direccion').value; // Corrección aquí
+                            const direccion = document.getElementById('cliente-direccion').value;
                             const correo = document.getElementById('cliente-correo').value;
                             const envio = document.querySelector('input[name="envio"]:checked').value;
                             const pedidoNum = pedidoCounter++;
