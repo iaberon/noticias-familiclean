@@ -51,6 +51,20 @@
             display: block;
             margin: 0 auto;
         }
+        #catalog-header {
+            width: 90%;
+            text-align: center;
+            margin: 0 auto;
+            padding: 0;
+        }
+        #catalog-header img {
+            width: 100%;
+            max-width: 1280px;
+            height: auto;
+            max-height: 90px;
+            display: block;
+            margin: 0 auto;
+        }
         .carrusel {
             width: 100%;
             margin: 0;
@@ -244,8 +258,8 @@
             position: relative;
         }
         #pedidos .envio-info-icon {
-            width: 20px; /* Ajustado de 14px a 20px */
-            height: 20px; /* Ajustado de 14px a 20px */
+            width: 20px;
+            height: 20px;
             vertical-align: middle;
             margin-left: 5px;
             cursor: pointer;
@@ -265,7 +279,7 @@
             white-space: normal;
         }
         #pedidos .envio-options:hover .envio-tooltip,
-        #pedids .envio-tooltip.active {
+        #pedidos .envio-tooltip.active {
             display: block;
         }
         #pedidos button {
@@ -308,6 +322,20 @@
             border-radius: 5px;
             background-color: #e6ffe6;
             text-align: right;
+        }
+        #footer-section {
+            width: 90%;
+            text-align: center;
+            margin: 20px auto;
+            padding: 0;
+        }
+        #footer-section img {
+            width: 100%;
+            max-width: 1323px;
+            height: auto;
+            max-height: 416px;
+            display: block;
+            margin: 0 auto;
         }
     
         /* Ajustes para móviles */
@@ -367,9 +395,14 @@
         <p>Horarios de atención para este sitio web: de 10:00 a 21:00        horarios de despacho: previa coordinación al momento de la compra</p>
     </div>
     
-    <!-- Sección con la imagen del logo -->
+    <!-- Sección con la imagen principal -->
     <div id="logo-section">
-        <img src="img/pagos.jpg" alt="Logo Familiclean">
+        <img src="img/principal.png" alt="Imagen principal Familiclean">
+    </div>
+
+    <!-- Sección con la imagen del catálogo -->
+    <div id="catalog-header">
+        <img src="img/nuestro catalogo.png" alt="Nuestro catálogo">
     </div>
 
     <!-- Contenedor del carrusel -->
@@ -421,6 +454,11 @@
                 <p id="error-message" class="error-message">Primero debe llenar los datos</p>
             </form>
         </div>
+    </div>
+
+    <!-- Sección con la imagen de pagos al final -->
+    <div id="footer-section">
+        <img src="img/pagos.png" alt="Pagos Familiclean">
     </div>
 
     <!-- Script para inicializar el carrusel -->
@@ -621,7 +659,7 @@
                         if (confirmPopup) {
                             const nombre = document.getElementById('cliente-nombre').value;
                             const telefono = document.getElementById('cliente-telefono').value;
-                            const direccion = document.getElementById('cliente-direccion').value;
+                            const direccion = document.getElementById('cliente direcciones').value;
                             const correo = document.getElementById('cliente-correo').value;
                             const envio = document.querySelector('input[name="envio"]:checked').value;
                             const pedidoNum = pedidoCounter++;
