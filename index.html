@@ -32,19 +32,20 @@
         }
         #price-banner p {
             display: inline-block;
-            animation: marquesina 20s linear infinite; /* Nueva duración: 20s */
+            animation: marquesina 20s linear infinite;
             margin: 0;
         }
         @keyframes marquesina {
-            0% { transform: translateX(100%); } /* Fuera a la derecha */
-            10% { transform: translateX(50%); }  /* Centro en 2s (10% de 20s) */
-            100% { transform: translateX(-100%); } /* Fuera a la izquierda */
+            0% { transform: translateX(100%); }
+            10% { transform: translateX(50%); }
+            100% { transform: translateX(-100%); }
         }
         #logo-section {
             width: 100%;
             text-align: center;
             margin: 0 auto;
             padding: 0;
+            margin-bottom: 25px; /* Separación de 25px */
         }
         #logo-section img {
             width: 100%;
@@ -54,25 +55,12 @@
             display: block;
             margin: 0 auto;
         }
-        #catalog-header {
-            width: 100%;
-            text-align: center;
-            margin: 0 auto;
-            padding: 0;
-        }
-        #catalog-header img {
-            width: 100%;
-            max-width: 1280px;
-            height: auto;
-            max-height: 90px;
-            display: block;
-            margin: 0 auto;
-        }
         .carrusel {
             width: 100%;
             margin: 0;
             padding: 0;
             position: relative;
+            margin-bottom: 25px; /* Separación de 25px */
         }
         .carrusel img {
             width: 70%;
@@ -108,7 +96,21 @@
         .slick-prev:before { content: '<'; font-size: 24px; color: #fff; font-family: inherit; }
         .slick-next:before { content: '>'; font-size: 24px; color: #fff; font-family: inherit; }
         .slick-prev span, .slick-next span { display: none !important; }
-
+        #catalog-header {
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+            padding: 0;
+            margin-bottom: 25px; /* Separación de 25px */
+        }
+        #catalog-header img {
+            width: 100%;
+            max-width: 1280px;
+            height: auto;
+            max-height: 90px;
+            display: block;
+            margin: 0 auto;
+        }
         /* Estilos del catálogo */
         #catalogo {
             width: 90%;
@@ -433,16 +435,16 @@
         <img src="img/principal.png" alt="Imagen principal Familiclean">
     </div>
 
-    <!-- Sección con la imagen del catálogo -->
-    <div id="catalog-header">
-        <img src="img/nuestro catalogo.png" alt="Nuestro catálogo">
-    </div>
-
     <!-- Contenedor del carrusel -->
     <div class="carrusel">
         <div><img src="img/fondobanner.png" alt="Oferta 1"></div>
         <div><img src="img/fondobanner.png" alt="Oferta 2"></div>
         <div><img src="img/fondobanner.png" alt="Noticia 1"></div>
+    </div>
+
+    <!-- Sección con la imagen del catálogo -->
+    <div id="catalog-header">
+        <img src="img/nuestro catalogo.png" alt="Nuestro catálogo">
     </div>
 
     <!-- Contenedor del catálogo -->
