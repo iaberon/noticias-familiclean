@@ -20,7 +20,7 @@
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 4px;
-            text-align: center; /* De vuelta a center */
+            text-align: center;
             font-size: 20px;
             position: fixed;
             top: 0;
@@ -32,13 +32,12 @@
         }
         #price-banner p {
             display: inline-block;
-            animation: marquesina 20s linear infinite; /* Reducido a 20s */
+            animation: marquesina 41s linear infinite; /* Restaurado a 41s */
             margin: 0;
         }
         @keyframes marquesina {
-            0% { transform: translateX(100%); } /* Fuera a la derecha */
-            15% { transform: translateX(0%); } /* Centro en 3s (15% de 20s) */
-            100% { transform: translateX(-100%); } /* Fuera a la izquierda */
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
         #logo-section {
             width: 100%;
@@ -690,7 +689,7 @@
                 const form = document.getElementById('pedido-form');
                 const generarBtn = document.getElementById('generar-pedido');
                 const inputs = form.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"]');
-                const envioOptions = form.querySelectorAll('input[name="envio"]');
+                const envioOptions = document.querySelectorAll('input[name="envio"]');
 
                 inputs.forEach(input => input.addEventListener('input', validarFormulario));
                 envioOptions.forEach(option => option.addEventListener('change', actualizarListaPedido));
