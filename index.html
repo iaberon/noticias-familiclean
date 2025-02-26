@@ -45,7 +45,7 @@
             text-align: center;
             margin: 0 auto;
             padding: 0;
-            margin-bottom: 25px; /* Separación de 25px */
+            margin-bottom: 25px;
         }
         #logo-section img {
             width: 100%;
@@ -60,7 +60,7 @@
             margin: 0;
             padding: 0;
             position: relative;
-            margin-bottom: 25px; /* Separación de 25px */
+            margin-bottom: 25px;
         }
         .carrusel img {
             width: 70%;
@@ -101,7 +101,7 @@
             text-align: center;
             margin: 0 auto;
             padding: 0;
-            margin-bottom: 25px; /* Separación de 25px */
+            margin-bottom: 25px;
         }
         #catalog-header img {
             width: 100%;
@@ -365,6 +365,25 @@
             color: #b77cb4;
             margin: 5px 0 15px 0;
         }
+        /* Estilos para el mensaje de confirmación */
+        #add-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 45px;
+            background-color: rgba(0, 128, 0, 0.9); /* Verde oscuro con opacidad */
+            color: white;
+            text-align: center;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 2000;
+            font-size: 14px;
+            line-height: 1.2;
+        }
     
         /* Ajustes para móviles */
         @media (max-width: 768px) {
@@ -421,6 +440,10 @@
                 width: 20px;
                 height: 20px;
             }
+            #add-message {
+                width: 250px; /* Ajuste para pantallas pequeñas */
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -446,6 +469,9 @@
     <div id="catalog-header">
         <img src="img/nuestro catalogo.png" alt="Nuestro catálogo">
     </div>
+
+    <!-- Mensaje de confirmación -->
+    <div id="add-message">Agregado al listado,<br>revisar más abajo</div>
 
     <!-- Contenedor del catálogo -->
     <div id="catalogo">
@@ -578,6 +604,22 @@
                         div.querySelector('.agregar').addEventListener('click', () => {
                             const cantidad = parseInt(div.querySelector('.cantidad').value) || 1;
                             agregarAlPedido(prod, cantidad);
+
+                            // Mostrar mensaje de confirmación
+                            const message = document.getElementById('add-message');
+                            message.style.display = 'block';
+                            setTimeout(() => {
+                                message.style.display = 'none';
+                            }, 5000); // Ocultar después de 5 segundos
+
+                            // Ocultar mensaje al hacer clic en cualquier parte
+                            document.addEventListener('click', hideMessageOnClick);
+                            function hideMessageOnClick(e) {
+                                if (!e.target.classList.contains('agregar')) {
+                                    message.style.display = 'none';
+                                    document.removeEventListener('click', hideMessageOnClick);
+                                }
+                            }
                         });
                         grid.appendChild(div);
                     });
@@ -714,7 +756,7 @@
                             const whatsappLink = `https://wa.me/${miNumero}?text=${encodeURIComponent(whatsappMensaje)}`;
                             window.open(whatsappLink, '_blank');
 
-                            // Generar y descargar archivo JSON
+                            // Generar el archivo JSON en memoria y mostrarlo en consola (sin descargar)
                             const pedidoData = {
                                 numero: pedidoNum,
                                 cliente: { nombre, telefono, direccion, correo },
@@ -722,13 +764,7 @@
                                 productos: pedidoItems,
                                 total: calcularTotal()
                             };
-                            const blob = new Blob([JSON.stringify(pedidoData, null, 2)], { type: 'application/json' });
-                            const url = URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = `pedido_${pedidoNum}.json`;
-                            a.click();
-                            URL.revokeObjectURL(url);
+                            console.log('JSON generado (no descargado):', JSON.stringify(pedidoData, null, 2));
 
                             // Limpiar después de enviar
                             pedidoItems = [];
