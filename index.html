@@ -866,7 +866,7 @@
                                 `**Método de envío:** ${envio === 'retiro' ? 'Retiro en tienda' : 'Despacho a domicilio'}\n\n` +
                                 `**Datos del cliente:**\n- Nombre: ${nombre}\n- Teléfono: ${telefono}\n- Dirección: ${direccion}\n- Correo: ${correo}\n\n` +
                                 `**Productos:**\n${pedidoItems.map(p => `- ${p.nombre} (x${p.cantidad}) - CLP$${(p.precio * p.cantidad).toLocaleString('es-CL')}`).join('\n')}\n\n` +
-                                `Como último paso, envía este mensaje al vendedor para completar tu pedido:`;
+                                `**Como último paso,** envía este mensaje al vendedor para completar tu pedido:`;
                             const whatsappLink = `https://wa.me/${miNumero}?text=${encodeURIComponent(whatsappMensaje)}`;
                             window.open(whatsappLink, '_blank');
 
