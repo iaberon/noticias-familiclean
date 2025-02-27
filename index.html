@@ -398,7 +398,7 @@
             align-items: center;
         }
         .modal-content {
-            background-color: #e6f3fa; /* Fondo azul claro */
+            background-color: #e6f3fa;
             padding: 20px;
             border-radius: 8px;
             max-width: 400px;
@@ -408,20 +408,20 @@
         }
         .modal-content h3 {
             margin: 0 0 10px 0;
-            color: #018bd3; /* Azul para el título */
+            color: #018bd3;
             font-size: 18px;
         }
         .modal-content p {
             margin: 0 0 10px 0;
             font-size: 18px;
-            color: #333; /* Gris oscuro para el texto */
+            color: #333;
         }
         .modal-content ul {
             list-style-type: disc;
             padding-left: 20px;
             margin: 0 0 20px 0;
             font-size: 18px;
-            color: #333; /* Gris oscuro para la lista */
+            color: #333;
         }
         .modal-content li {
             margin-bottom: 5px;
@@ -517,11 +517,11 @@
                 padding: 15px;
             }
             .modal-content h3 {
-                font-size: 20px; /* Ajustado a 20px en móviles */
+                font-size: 20px;
             }
             .modal-content p, .modal-content ul {
-                font-size: 18px; /* Ajustado a 18px en móviles */
-                color: #333; /* Gris oscuro en móviles */
+                font-size: 18px;
+                color: #333;
             }
             .modal-buttons button {
                 padding: 6px 12px;
@@ -859,9 +859,14 @@
                             const envio = document.querySelector('input[name="envio"]:checked').value;
                             const pedidoNum = pedidoCounter++;
 
-                            // Enviar mensaje a tu WhatsApp
+                            // Enviar mensaje a tu WhatsApp con el nuevo formato
                             const miNumero = '56991823324';
-                            const whatsappMensaje = `Nuevo Pedido #${pedidoNum}\nNombre: ${nombre}\nTeléfono: ${telefono}\nDirección: ${direccion}\nCorreo: ${correo}\nEnvío: ${envio === 'retiro' ? 'Retiro en tienda' : 'Despacho a domicilio'}\nProductos:\n${pedidoItems.map(p => `${p.nombre} (x${p.cantidad}) - CLP$${p.precio * p.cantidad}`).join('\n')}\nTotal: CLP$${calcularTotal().toLocaleString('es-CL')}`;
+                            const whatsappMensaje = `Como último paso, envía este mensaje al vendedor para completar tu pedido:\n\n` +
+                                `**Número del pedido:** #${pedidoNum}\n` +
+                                `**Total:** CLP$${calcularTotal().toLocaleString('es-CL')}\n` +
+                                `**Método de envío:** ${envio === 'retiro' ? 'Retiro en tienda' : 'Despacho a domicilio'}\n` +
+                                `**Datos del cliente:**\n- Nombre: ${nombre}\n- Teléfono: ${telefono}\n- Dirección: ${direccion}\n- Correo: ${correo}\n` +
+                                `**Productos:**\n${pedidoItems.map(p => `- ${p.nombre} (x${p.cantidad}) - CLP$${(p.precio * p.cantidad).toLocaleString('es-CL')}`).join('\n')}`;
                             const whatsappLink = `https://wa.me/${miNumero}?text=${encodeURIComponent(whatsappMensaje)}`;
                             window.open(whatsappLink, '_blank');
 
