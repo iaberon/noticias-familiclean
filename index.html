@@ -861,12 +861,12 @@
 
                             // Enviar mensaje a tu WhatsApp con el nuevo formato
                             const miNumero = '56991823324';
-                            const whatsappMensaje = `Como último paso, envía este mensaje al vendedor para completar tu pedido:\n\n` +
-                                `**Número del pedido:** #${pedidoNum}\n` +
-                                `**Total:** CLP$${calcularTotal().toLocaleString('es-CL')}\n` +
-                                `**Método de envío:** ${envio === 'retiro' ? 'Retiro en tienda' : 'Despacho a domicilio'}\n` +
-                                `**Datos del cliente:**\n- Nombre: ${nombre}\n- Teléfono: ${telefono}\n- Dirección: ${direccion}\n- Correo: ${correo}\n` +
-                                `**Productos:**\n${pedidoItems.map(p => `- ${p.nombre} (x${p.cantidad}) - CLP$${(p.precio * p.cantidad).toLocaleString('es-CL')}`).join('\n')}`;
+                            const whatsappMensaje = `**Número del pedido:** #${pedidoNum}\n\n` +
+                                `**Total:** CLP$${calcularTotal().toLocaleString('es-CL')}\n\n` +
+                                `**Método de envío:** ${envio === 'retiro' ? 'Retiro en tienda' : 'Despacho a domicilio'}\n\n` +
+                                `**Datos del cliente:**\n- Nombre: ${nombre}\n- Teléfono: ${telefono}\n- Dirección: ${direccion}\n- Correo: ${correo}\n\n` +
+                                `**Productos:**\n${pedidoItems.map(p => `- ${p.nombre} (x${p.cantidad}) - CLP$${(p.precio * p.cantidad).toLocaleString('es-CL')}`).join('\n')}\n\n` +
+                                `Como último paso, envía este mensaje al vendedor para completar tu pedido:`;
                             const whatsappLink = `https://wa.me/${miNumero}?text=${encodeURIComponent(whatsappMensaje)}`;
                             window.open(whatsappLink, '_blank');
 
