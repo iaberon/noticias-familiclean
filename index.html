@@ -374,7 +374,7 @@
             transform: translate(-50%, -50%);
             width: 300px;
             height: 45px;
-            background-color: rgba(0, 128, 0, 0.9); /* Verde oscuro con opacidad */
+            background-color: rgba(0, 128, 0, 0.9);
             color: white;
             text-align: center;
             padding: 5px;
@@ -384,7 +384,73 @@
             font-size: 14px;
             line-height: 1.2;
         }
-    
+        /* Estilos del modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            text-align: left;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .modal-content h3 {
+            margin: 0 0 10px 0;
+            color: #018bd3;
+            font-size: 18px;
+        }
+        .modal-content p {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+        }
+        .modal-content ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 0 0 20px 0;
+            font-size: 14px;
+        }
+        .modal-content li {
+            margin-bottom: 5px;
+        }
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .modal-buttons button {
+            padding: 8px 15px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        #modal-confirm {
+            background-color: #018bd3;
+            color: white;
+        }
+        #modal-confirm:hover {
+            background-color: #b77cb4;
+        }
+        #modal-cancel {
+            background-color: #ccc;
+            color: #000;
+        }
+        #modal-cancel:hover {
+            background-color: #999;
+        }
         /* Ajustes para móviles */
         @media (max-width: 768px) {
             .search-container {
@@ -441,7 +507,21 @@
                 height: 20px;
             }
             #add-message {
-                width: 250px; /* Ajuste para pantallas pequeñas */
+                width: 250px;
+                font-size: 12px;
+            }
+            .modal-content {
+                width: 85%;
+                padding: 15px;
+            }
+            .modal-content h3 {
+                font-size: 16px;
+            }
+            .modal-content p, .modal-content ul {
+                font-size: 12px;
+            }
+            .modal-buttons button {
+                padding: 6px 12px;
                 font-size: 12px;
             }
         }
@@ -521,6 +601,24 @@
     <!-- Sección con la imagen de pagos al final -->
     <div id="footer-section">
         <img src="img/pagos.jpg" alt="Pagos Familiclean">
+    </div>
+
+    <!-- Modal personalizado para confirmar el pedido -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <h3>Confirmar Pedido</h3>
+            <p>Al hacer clic en "Confirmar":</p>
+            <ul>
+                <li>Te redirigiremos a WhatsApp para contactar a un vendedor.</li>
+                <li>El vendedor te enviará un link de pago con el total.</li>
+                <li>Coordinarán el envío si aplica.</li>
+                <li>Estamos en marcha blanca, así que puede haber un poco de espera.</li>
+            </ul>
+            <div class="modal-buttons">
+                <button id="modal-confirm">Confirmar</button>
+                <button id="modal-cancel">Cancelar</button>
+            </div>
+        </div>
     </div>
 
     <!-- Script para inicializar el carrusel -->
@@ -741,8 +839,16 @@
 
                 generarBtn.addEventListener('click', () => {
                     if (!generarBtn.disabled) {
-                        const confirmPopup = confirm("Al crear el pedido se redireccionará a la aplicación de WhatsApp para contactarse con un vendedor, el cual terminará el proceso enviando un link de pago con el total y coordinar el envío en caso de ser necesario, el tiempo de espera en marcha blanca");
-                        if (confirmPopup) {
+                        // Mostrar el modal
+                        const modal = document.getElementById('confirm-modal');
+                        modal.style.display = 'flex';
+
+                        // Manejar los botones del modal
+                        const confirmBtn = document.getElementById('modal-confirm');
+                        const cancelBtn = document.getElementById('modal-cancel');
+
+                        confirmBtn.onclick = () => {
+                            modal.style.display = 'none'; // Cerrar modal
                             const nombre = document.getElementById('cliente-nombre').value;
                             const telefono = document.getElementById('cliente-telefono').value;
                             const direccion = document.getElementById('cliente-direccion').value;
@@ -756,7 +862,7 @@
                             const whatsappLink = `https://wa.me/${miNumero}?text=${encodeURIComponent(whatsappMensaje)}`;
                             window.open(whatsappLink, '_blank');
 
-                            // Generar el archivo JSON en memoria y mostrarlo en consola (sin descargar)
+                            // Generar el archivo JSON en memoria y mostrarlo en consola (sin descargar por ahora)
                             const pedidoData = {
                                 numero: pedidoNum,
                                 cliente: { nombre, telefono, direccion, correo },
@@ -772,7 +878,11 @@
                             form.reset();
                             generarBtn.disabled = true;
                             document.getElementById('error-message').style.display = 'block';
-                        }
+                        };
+
+                        cancelBtn.onclick = () => {
+                            modal.style.display = 'none'; // Cerrar modal
+                        };
                     }
                 });
 
