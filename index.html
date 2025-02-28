@@ -11,6 +11,7 @@
     <!-- CDN de Slick Slider JS desde Cloudflare -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <style>
+        /* Tu CSS original, sin cambios */
         body {
             margin: 0;
             padding-top: 0px;
@@ -111,14 +112,12 @@
             display: block;
             margin: 0 auto;
         }
-        /* Estilos del catálogo */
         #catalogo {
             width: 90%;
             margin: 20px auto;
             padding: 20px;
             background-color: #f5f6f5;
         }
-        /* Subcontenedor 1: Categorías y buscador */
         #categorias {
             margin-bottom: 20px;
         }
@@ -200,7 +199,6 @@
             color: #ffffff;
             border-color: #8d2e88;
         }
-        /* Subcontenedor 2: Productos */
         #productos {
             margin-bottom: 20px;
             max-height: 600px;
@@ -271,12 +269,11 @@
             cursor: pointer;
             font-size: 14px;
             transition: background-color 0.3s;
-            text-align: center; /* Sin salto de línea, texto centrado */
+            text-align: center;
         }
         .producto button:hover {
             background-color: #b77cb4;
         }
-        /* Subcontenedor 3: Pedidos */
         #pedidos {
             border-top: 1px solid #ccc;
             padding-top: 20px;
@@ -403,7 +400,6 @@
             display: block;
             margin: 0 auto;
         }
-        /* Estilos para el mensaje de confirmación */
         #add-message {
             display: none;
             position: fixed;
@@ -422,7 +418,6 @@
             font-size: 14px;
             line-height: 1.2;
         }
-        /* Estilos del modal */
         .modal {
             display: none;
             position: fixed;
@@ -491,7 +486,6 @@
         #modal-cancel:hover {
             background-color: #999;
         }
-        /* Ajustes para móviles */
         @media (max-width: 768px) {
             .search-container {
                 text-align: left;
@@ -549,7 +543,7 @@
             .producto button {
                 padding: 4px 8px;
                 font-size: 14px;
-                text-align: center; /* Sin salto de línea */
+                text-align: center;
             }
             #pedidos h2 {
                 font-size: 20px;
@@ -608,34 +602,27 @@
     </style>
 </head>
 <body>
-    <!-- Banner con horarios de atención -->
     <div id="price-banner">
         <p>Horarios de atención para este sitio web: de 10:00 a 21:00 ________ Horarios de despacho: previa coordinación al momento de la compra _______ Al momento de generar el pedido podrá conversar directamente con un vendedor</p>
     </div>
     
-    <!-- Sección con la imagen principal -->
     <div id="logo-section">
         <img src="img/principal.png" alt="Imagen principal Familiclean">
     </div>
 
-    <!-- Contenedor del carrusel -->
     <div class="carrusel">
         <div><img src="img/fondobanner.png" alt="Oferta 1"></div>
         <div><img src="img/fondobanner.png" alt="Oferta 2"></div>
         <div><img src="img/fondobanner.png" alt="Noticia 1"></div>
     </div>
 
-    <!-- Sección con la imagen del catálogo -->
     <div id="catalog-header">
         <img src="img/nuestro catalogo.png" alt="Nuestro catálogo">
     </div>
 
-    <!-- Mensaje de confirmación -->
     <div id="add-message">Agregado al listado,<br>revisar más abajo</div>
 
-    <!-- Contenedor del catálogo -->
     <div id="catalogo">
-        <!-- Subcontenedor 1: Categorías y buscador -->
         <div id="categorias">
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="Buscar productos...">
@@ -643,18 +630,12 @@
                 <div id="search-suggestions"></div>
             </div>
             <h2>Categorías</h2>
-            <div class="categorias-buttons">
-                <!-- Las pestañas se generarán dinámicamente con JS -->
-            </div>
+            <div class="categorias-buttons"></div>
         </div>
-        <!-- Subcontenedor 2: Productos -->
         <div id="productos">
             <h2>Productos</h2>
-            <div class="grid-productos" id="grid-productos">
-                <!-- La cuadrícula se generará dinámicamente con JS -->
-            </div>
+            <div class="grid-productos" id="grid-productos"></div>
         </div>
-        <!-- Subcontenedor 3: Pedidos -->
         <div id="pedidos">
             <h2>Tu Pedido</h2>
             <p id="pedidos-instructions">Para habilitar el botón "Crear y mandar Pedido por WhatsApp":<br>1. Agregar al menos un producto al pedido.<br>2. Completar todos los campos del formulario obligatorios.</p>
@@ -678,12 +659,10 @@
         </div>
     </div>
 
-    <!-- Sección con la imagen de pagos al final -->
     <div id="footer-section">
         <img src="img/pagos.jpg" alt="Pagos Familiclean">
     </div>
 
-    <!-- Modal personalizado para confirmar el pedido -->
     <div id="confirm-modal" class="modal">
         <div class="modal-content">
             <h3>Confirmar Pedido</h3>
@@ -701,7 +680,6 @@
         </div>
     </div>
 
-    <!-- Script para inicializar el carrusel -->
     <script>
         $(document).ready(function(){
             $('.carrusel').slick({
@@ -724,14 +702,12 @@
                 ]
             });
 
-            // Manejo del tooltip en móviles
             $('.envio-info-icon').on('click', function(e) {
                 e.preventDefault();
                 const tooltip = $(this).siblings('.envio-tooltip');
                 tooltip.toggleClass('active');
             });
 
-            // Ocultar tooltip al hacer clic fuera
             $(document).on('click', function(e) {
                 if (!$(e.target).closest('.envio-info-icon').length) {
                     $('.envio-tooltip').removeClass('active');
@@ -740,15 +716,13 @@
         });
     </script>
 
-    <!-- Script para cargar categorías, productos y manejar pedidos -->
     <script>
         let pedidoItems = [];
-        let pedidoCounter = 1001; // Inicia en 1001
+        let pedidoCounter = 1001;
 
         fetch('data/catalogo.json')
             .then(response => response.json())
             .then(data => {
-                // Subcontenedor 1: Generar pestañas de categorías
                 const categoriasButtonsDiv = document.querySelector('#categorias .categorias-buttons');
                 data.categorias.forEach(cat => {
                     const button = document.createElement('button');
@@ -757,18 +731,18 @@
                     button.addEventListener('click', () => {
                         document.querySelectorAll('#categorias button').forEach(btn => btn.classList.remove('active'));
                         button.classList.add('active');
-                        const productosFiltrados = data.productos.filter(prod => prod.categoriaId == cat.id);
+                        const productosFiltrados = data.productos.filter(prod => prod.categoriaId == cat.id && prod.stock === true);
                         mostrarProductos(productosFiltrados);
                         document.getElementById('search-input').value = '';
                     });
                     categoriasButtonsDiv.appendChild(button);
                 });
 
-                // Función para mostrar productos en la cuadrícula
                 function mostrarProductos(productos) {
+                    const productosEnStock = productos.filter(prod => prod.stock === true);
                     const grid = document.getElementById('grid-productos');
                     grid.innerHTML = '';
-                    productos.forEach(prod => {
+                    productosEnStock.forEach(prod => {
                         const div = document.createElement('div');
                         div.className = 'producto';
                         div.innerHTML = `
@@ -777,20 +751,16 @@
                             <p class="price">CLP$${prod.precio.toLocaleString('es-CL')} <span>IVA incluido</span></p>
                             <p class="description">${prod.descripcion}</p>
                             <input type="number" class="cantidad" min="1" value="1">
-                            <button class="agregar">Agregar al pedido</button> <!-- Sin salto de línea -->
+                            <button class="agregar">Agregar al pedido</button>
                         `;
                         div.querySelector('.agregar').addEventListener('click', () => {
                             const cantidad = parseInt(div.querySelector('.cantidad').value) || 1;
                             agregarAlPedido(prod, cantidad);
-
-                            // Mostrar mensaje de confirmación
                             const message = document.getElementById('add-message');
                             message.style.display = 'block';
                             setTimeout(() => {
                                 message.style.display = 'none';
-                            }, 5000); // Ocultar después de 5 segundos
-
-                            // Ocultar mensaje al hacer clic en cualquier parte
+                            }, 5000);
                             document.addEventListener('click', hideMessageOnClick);
                             function hideMessageOnClick(e) {
                                 if (!e.target.classList.contains('agregar')) {
@@ -803,10 +773,8 @@
                     });
                 }
 
-                // Mostrar todos los productos por defecto
-                mostrarProductos(data.productos);
+                mostrarProductos(data.productos.filter(prod => prod.stock === true));
 
-                // Buscador
                 const searchInput = document.getElementById('search-input');
                 const searchButton = document.getElementById('search-button');
                 const suggestionsDiv = document.getElementById('search-suggestions');
@@ -816,7 +784,7 @@
                     suggestionsDiv.innerHTML = '';
                     if (query.length > 0) {
                         const sugerencias = data.productos.filter(prod => 
-                            prod.nombre.toLowerCase().includes(query)
+                            prod.nombre.toLowerCase().includes(query) && prod.stock === true
                         );
                         if (sugerencias.length > 0) {
                             sugerencias.forEach(prod => {
@@ -835,14 +803,14 @@
                         }
                     } else {
                         suggestionsDiv.style.display = 'none';
-                        mostrarProductos(data.productos);
+                        mostrarProductos(data.productos.filter(prod => prod.stock === true));
                     }
                 });
 
                 searchButton.addEventListener('click', () => {
                     const query = searchInput.value.toLowerCase();
                     const productosFiltrados = data.productos.filter(prod => 
-                        prod.nombre.toLowerCase().includes(query)
+                        prod.nombre.toLowerCase().includes(query) && prod.stock === true
                     );
                     mostrarProductos(productosFiltrados);
                     suggestionsDiv.style.display = 'none';
@@ -855,7 +823,6 @@
                     }
                 });
 
-                // Subcontenedor 3: Manejo de pedidos
                 function agregarAlPedido(producto, cantidad) {
                     const existingItem = pedidoItems.find(item => item.id === producto.id);
                     if (existingItem) {
@@ -890,7 +857,6 @@
                     pedidoTotal.textContent = `Total: $${total.toLocaleString('es-CL')}`;
                     validarFormulario();
 
-                    // Añadir evento a los botones de eliminación
                     document.querySelectorAll('.delete-item').forEach(button => {
                         button.addEventListener('click', (e) => {
                             const index = e.target.getAttribute('data-index');
@@ -919,16 +885,14 @@
 
                 generarBtn.addEventListener('click', () => {
                     if (!generarBtn.disabled) {
-                        // Mostrar el modal
                         const modal = document.getElementById('confirm-modal');
                         modal.style.display = 'flex';
 
-                        // Manejar los botones del modal
                         const confirmBtn = document.getElementById('modal-confirm');
                         const cancelBtn = document.getElementById('modal-cancel');
 
                         confirmBtn.onclick = () => {
-                            modal.style.display = 'none'; // Cerrar modal
+                            modal.style.display = 'none';
                             const nombre = document.getElementById('cliente-nombre').value;
                             const telefono = document.getElementById('cliente-telefono').value;
                             const direccion = document.getElementById('cliente-direccion').value;
@@ -936,7 +900,6 @@
                             const envio = document.querySelector('input[name="envio"]:checked').value;
                             const pedidoNum = pedidoCounter++;
 
-                            // Enviar mensaje a tu WhatsApp con el nuevo formato
                             const miNumero = '56991823324';
                             const whatsappMensaje = `**Número del pedido:** #${pedidoNum}\n\n` +
                                 `**Total:** CLP$${calcularTotal().toLocaleString('es-CL')}\n\n` +
@@ -947,7 +910,6 @@
                             const whatsappLink = `https://wa.me/${miNumero}?text=${encodeURIComponent(whatsappMensaje)}`;
                             window.open(whatsappLink, '_blank');
 
-                            // Generar el archivo JSON en memoria y mostrarlo en consola (sin descargar por ahora)
                             const pedidoData = {
                                 numero: pedidoNum,
                                 cliente: { nombre, telefono, direccion, correo },
@@ -957,7 +919,6 @@
                             };
                             console.log('JSON generado (no descargado):', JSON.stringify(pedidoData, null, 2));
 
-                            // Limpiar después de enviar
                             pedidoItems = [];
                             actualizarListaPedido();
                             form.reset();
@@ -966,7 +927,7 @@
                         };
 
                         cancelBtn.onclick = () => {
-                            modal.style.display = 'none'; // Cerrar modal
+                            modal.style.display = 'none';
                         };
                     }
                 });
