@@ -129,14 +129,14 @@
         }
         #search-input {
             padding: 6px 30px 6px 10px;
-            font-size: 14px; /* Aumentado de 12px a 14px */
+            font-size: 14px;
             border: 1px solid #ccc;
             border-radius: 4px;
             width: 200px;
         }
         #search-button {
             padding: 6px 10px;
-            font-size: 14px; /* Aumentado de 12px a 14px */
+            font-size: 14px;
             background-color: #8d2e88;
             color: white;
             border: none;
@@ -171,7 +171,7 @@
         }
         #categorias h2 {
             margin: 0 0 10px 0;
-            font-size: 20px; /* Aumentado de 18px a 20px */
+            font-size: 20px;
             display: inline-block;
             color: #018bd3;
         }
@@ -187,7 +187,7 @@
             background-color: #f5f6f5;
             color: #000000;
             cursor: pointer;
-            font-size: 14px; /* Aumentado de 12px a 14px */
+            font-size: 14px;
             border-radius: 8px;
             transition: background-color 0.3s;
         }
@@ -212,7 +212,7 @@
             gap: 10px;
         }
         #productos h2 {
-            font-size: 20px; /* Aumentado de 18px a 20px */
+            font-size: 20px;
             margin: 0 0 10px 0;
             color: #018bd3;
         }
@@ -221,34 +221,48 @@
             padding: 10px;
             text-align: center;
             background-color: #fff;
+            width: 100%; /* Ancho completo dentro de la celda */
+            height: 250px; /* Altura fija para uniformidad */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden; /* Evita que el contenido desborde */
         }
         .producto img {
             max-width: 100px;
             height: auto;
+            max-height: 80px; /* Limita la altura de la imagen */
+            object-fit: contain;
         }
         .producto h3 {
-            font-size: 16px; /* Aumentado de 14px a 16px */
+            font-size: 16px;
             margin: 5px 0;
             color: #018bd3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap; /* Evita que el nombre crezca demasiado */
         }
         .producto p.price {
-            font-size: 16px; /* Aumentado de 12px a 16px */
+            font-size: 16px;
             font-weight: bold;
             margin: 5px 0;
         }
         .producto p.price span {
-            font-size: 13px; /* Tamaño para "IVA incluido" */
+            font-size: 13px;
             font-weight: normal;
         }
         .producto p.description {
-            font-size: 14px; /* Aumentado de 12px a 14px */
+            font-size: 14px;
             margin: 5px 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap; /* Limita la descripción a una línea */
         }
         .producto .cantidad {
             width: 40px;
             padding: 2px;
-            margin: 5px 0;
-            font-size: 14px; /* Aumentado de 12px a 14px */
+            margin: 5px auto;
+            font-size: 14px;
         }
         .producto button {
             padding: 5px 10px;
@@ -256,9 +270,9 @@
             color: white;
             border: none;
             cursor: pointer;
-            font-size: 14px; /* Aumentado de 12px a 14px */
+            font-size: 14px;
             transition: background-color 0.3s;
-            white-space: pre-wrap; /* Permite salto de línea */
+            white-space: pre-wrap;
             text-align: center;
         }
         .producto button:hover {
@@ -270,7 +284,7 @@
             padding-top: 20px;
         }
         #pedidos h2 {
-            font-size: 20px; /* Aumentado de 18px a 20px */
+            font-size: 20px;
             margin: 0 0 10px 0;
             color: #018bd3;
         }
@@ -282,7 +296,7 @@
         }
         #pedidos input[type="text"], #pedidos input[type="tel"], #pedidos input[type="email"] {
             padding: 8px;
-            font-size: 16px; /* Aumentado de 14px a 16px */
+            font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -324,7 +338,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px; /* Aumentado de 14px a 16px */
+            font-size: 16px;
             transition: background-color 0.3s;
         }
         #pedidos button:disabled {
@@ -335,13 +349,13 @@
             background-color: #b77cb4;
         }
         #pedidos-instructions {
-            font-size: 14px; /* Aumentado de 12px a 14px */
+            font-size: 14px;
             color: #b77cb4;
             margin: 5px 0 15px 0;
         }
         #pedidos .error-message {
             color: red;
-            font-size: 16px; /* Aumentado de 12px a 16px */
+            font-size: 16px;
             display: none;
         }
         #pedido-list {
@@ -353,7 +367,7 @@
         }
         #pedido-list p {
             margin: 5px 0;
-            font-size: 16px; /* Aumentado de 14px a 16px */
+            font-size: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -375,7 +389,7 @@
             border-radius: 5px;
             background-color: #fff;
             text-align: right;
-            font-size: 16px; /* Aumentado de 14px a 16px */
+            font-size: 16px;
         }
         #footer-section {
             width: 90%;
@@ -487,23 +501,23 @@
             }
             #search-input {
                 width: 100%;
-                font-size: 14px; /* Aumentado a 14px */
+                font-size: 14px;
             }
             #search-button {
-                font-size: 14px; /* Aumentado a 14px */
+                font-size: 14px;
             }
             #search-suggestions {
                 width: 100%;
             }
             #categorias h2 {
-                font-size: 20px; /* Aumentado a 20px */
+                font-size: 20px;
             }
             #categorias button {
                 padding: 6px 10px;
-                font-size: 14px; /* Aumentado de 10px a 14px */
+                font-size: 14px;
             }
             #productos h2 {
-                font-size: 20px; /* Aumentado a 20px */
+                font-size: 20px;
             }
             .grid-productos {
                 grid-template-columns: repeat(2, 1fr);
@@ -511,39 +525,39 @@
             }
             .producto {
                 padding: 8px;
+                height: 220px; /* Altura fija ajustada para móviles */
             }
             .producto img {
                 max-width: 80px;
+                max-height: 60px; /* Ajustado para móviles */
             }
             .producto h3 {
-                font-size: 14px; /* Aumentado de 12px a 14px */
+                font-size: 14px;
             }
             .producto p.price {
-                font-size: 15px; /* Aumentado a 15px */
-                font-weight: bold;
+                font-size: 15px;
             }
             .producto p.price span {
-                font-size: 10px; /* Tamaño para "IVA incluido" */
-                font-weight: normal;
+                font-size: 10px;
             }
             .producto p.description {
-                font-size: 12px; /* Aumentado de 10px a 12px */
+                font-size: 12px;
             }
             .producto .cantidad {
                 width: 30px;
-                font-size: 13px; /* Aumentado a 13px */
+                font-size: 13px;
             }
             .producto button {
                 padding: 4px 8px;
-                font-size: 14px; /* Aumentado de 10px a 14px */
-                white-space: pre-wrap; /* Permite salto de línea */
+                font-size: 14px;
+                white-space: pre-wrap;
                 text-align: center;
             }
             #pedidos h2 {
-                font-size: 20px; /* Aumentado a 20px */
+                font-size: 20px;
             }
             #pedidos-instructions {
-                font-size: 14px; /* Aumentado de 11px a 14px */
+                font-size: 14px;
             }
             #pedidos .envio-options {
                 flex-direction: column;
@@ -555,19 +569,19 @@
                 margin-top: 5px;
             }
             #pedido-list p {
-                font-size: 16px; /* Aumentado a 16px */
+                font-size: 16px;
             }
             #pedido-total {
-                font-size: 16px; /* Aumentado a 16px */
+                font-size: 16px;
             }
             #pedidos input[type="text"], #pedidos input[type="tel"], #pedidos input[type="email"] {
-                font-size: 16px; /* Aumentado a 16px */
+                font-size: 16px;
             }
             #pedidos button {
-                font-size: 16px; /* Aumentado a 16px */
+                font-size: 16px;
             }
             #pedidos .error-message {
-                font-size: 16px; /* Aumentado a 16px */
+                font-size: 16px;
             }
             .delete-item {
                 width: 20px;
@@ -875,7 +889,7 @@
                         total += 1500;
                     }
 
-                    pedidoTotal.textContent = `Total: $${total.toLocaleString('es-CL')}`; // Eliminado "CLP"
+                    pedidoTotal.textContent = `Total: $${total.toLocaleString('es-CL')}`;
                     validarFormulario();
 
                     // Añadir evento a los botones de eliminación
