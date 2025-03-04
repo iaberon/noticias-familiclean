@@ -219,14 +219,14 @@
             text-align: center;
             background-color: #fff;
             width: 100%;
-            height: 360px; /* Aumentado de 310px a 360px */
+            height: 360px; /* Aumentado a 360px */
             display: grid;
             grid-template-rows: 1fr 1fr;
             gap: 2px; /* Escritorio */
             overflow: hidden;
         }
         .producto img {
-            height: 100%; /* Ocupa toda la fila superior (~174px en escritorio) */
+            height: 100%; /* ~174px en escritorio */
             width: auto;
             max-width: 100%;
             display: block;
@@ -238,14 +238,16 @@
             flex-direction: column;
             justify-content: space-between;
             gap: 5px;
+            height: 100%; /* Ocupa toda la fila inferior */
         }
         .producto h3 {
             font-size: 16px;
             margin: 5px 0;
             color: #018bd3;
-            overflow: hidden;
+            min-height: 36px; /* 2 líneas mínimas en escritorio */
             white-space: normal;
-            height: 36px; /* 2 líneas fijas en escritorio (~16px * 2 + margen) */
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .producto p.price {
             font-size: 16px;
@@ -272,6 +274,7 @@
             width: 100%;
             border-radius: 8px;
             transition: background-color 0.3s;
+            margin-top: auto; /* Pega el botón abajo */
         }
         .producto button.agregar:hover {
             background-color: #b77cb4;
@@ -533,16 +536,16 @@
             }
             .producto {
                 padding: 0; /* Móvil */
-                height: 360px; /* Aumentado de 310px a 360px */
+                height: 360px; /* Aumentado a 360px */
                 gap: 0; /* Móvil */
             }
             .producto img {
-                height: 100%; /* Mantenido para móvil */
+                height: 100%; /* 180px en móvil */
                 max-width: 100%;
             }
             .producto h3 {
                 font-size: 14px;
-                height: 42px; /* 3 líneas fijas en móvil (~14px * 3) */
+                min-height: 42px; /* 3 líneas mínimas en móvil */
             }
             .producto p.price {
                 font-size: 15px;
